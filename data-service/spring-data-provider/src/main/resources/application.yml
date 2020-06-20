@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    username: postgres
+    password: pass
+    url: jdbc:postgresql://${POSTGRES_IP:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:postgres}
+  redis:
+    host: ${CACHE_IP:172.17.0.1}
+    port: ${CACHE_PORT:6379}
+server:
+  port: 8080
+
+urls:
+  content:
+    base: ${CONTENT_URL:http://localhost:5003/content}
