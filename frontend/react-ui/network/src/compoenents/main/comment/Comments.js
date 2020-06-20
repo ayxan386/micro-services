@@ -4,7 +4,7 @@ import Comment from "./Comment";
 export class Comments extends Component {
   render() {
     return (
-      <div>
+      <div className='comments'>
         {this.props.comments.map((comment) => {
           return <Comment body={comment.body} author={comment.author} />;
         })}

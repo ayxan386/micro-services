@@ -22,6 +22,28 @@
       font-size: 12.4px;
     }
   }
+  .comments {
+    padding: 4px;
+    .comment {
+      background-color: white;
+      border: 1px solid black;
+      border-radius: 5px;
+      padding: 4px;
+      color: black;
+      display: flex;
+      .author {
+        width: 35%;
+        min-height: 4rem;
+      }
+      .body {
+        font-size: 18px;
+      }
+      .img {
+        width: 90%;
+        height: auto;
+      }
+    }
+  }
 }
 
 .whole {
@@ -38,6 +60,11 @@
   height: 100%;
   #commenter {
     margin: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    height: 100%;
     .form-control {
       width: 75%;
       min-height: 4rem;

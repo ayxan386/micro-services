@@ -22,6 +22,7 @@ export class Commenter extends Component {
     return (
       <div className='commenter'>
         <form onSubmit={this.handleSubmit} id='commenter'>
+          <h4>Add your comment</h4>
           <textarea
             type='text'
             name='body'

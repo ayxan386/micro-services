@@ -16,7 +16,16 @@ export class PostDetails extends Component {
           <div className='body'>{body}</div>
           <div className='author'>by {nickname}</div>
         </div>
-        <Comments comments={this.props.comments || []} />
+        <Comments
+          comments={
+            this.props.comments || [
+              {
+                body: "hello to you too",
+                author: "not aykhan",
+              },
+            ]
+          }
+        />
       </div>
     );
   }
