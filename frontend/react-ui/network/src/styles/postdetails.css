@@ -1,0 +1,56 @@
+.post-details {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
+  width: 100%;
+  height: 100%;
+}
+
+.post-details .post {
+  color: black;
+  font-size: 24px;
+  padding: 25px 15px;
+  margin: 5px;
+  background-color: white;
+}
+
+.post-details .post .title {
+  text-align: center;
+  font-size: 32px;
+  padding: 2px 2px 11px 2px;
+  margin: 4px;
+}
+
+.post-details .post .body {
+  font-size: 18px;
+}
+
+.post-details .post .author {
+  font-size: 12.4px;
+}
+
+.whole .right-wrapper-post {
+  grid-area: R;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 65% 35%;
+      grid-template-rows: 65% 35%;
+}
+
+.commenter {
+  border-top: solid 2px #555;
+  width: 100%;
+  height: 100%;
+}
+
+.commenter #commenter {
+  margin: 8px;
+}
+
+.commenter #commenter .form-control {
+  width: 75%;
+  min-height: 4rem;
+}
+/*# sourceMappingURL=postdetails.css.map */
