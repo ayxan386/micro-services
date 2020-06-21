@@ -6,7 +6,14 @@ export class Comments extends Component {
     return (
       <div className='comments'>
         {this.props.comments.map((comment) => {
-          return <Comment body={comment.body} author={comment.author} />;
+          return (
+            <Comment
+              key={comment.commentId || Math.floor(Math.random() * 1000)}
+              id={comment.commentId}
+              body={comment.body}
+              author={comment.author}
+            />
+          );
         })}
       </div>
     );

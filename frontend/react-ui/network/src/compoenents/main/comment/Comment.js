@@ -4,10 +4,16 @@ export class Comment extends Component {
   render() {
     return (
       <div className='comment'>
-        <div className='author'>
-          <img className='img' src={this.props.author} alt='commenter' />
-          {this.props.author}
-        </div>
+        {this.props.author ? (
+          <div className='author'>
+            <img
+              className='img'
+              src={this.props.author.profilePicture}
+              alt='commenter'
+            />
+            {this.props.author.nickname}
+          </div>
+        ) : null}
         <div className='body'>{this.props.body}</div>
       </div>
     );

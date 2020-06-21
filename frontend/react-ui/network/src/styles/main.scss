@@ -20,13 +20,12 @@
       display: flex;
       background-color: inherit;
       flex-direction: column;
-      justify-items: center;
+      overflow: auto;
+      padding-right: 15px;
       .post {
         width: 100%;
         font-size: 32px;
-        max-height: 8em;
-        min-height: 5rem;
-        height: auto;
+        height: 9rem;
         background-color: white;
         margin: 10px 15px 5px 0px;
         padding: 7px;
@@ -41,11 +40,14 @@
         }
         .body {
           padding: 7px;
+          margin-top: -8px;
           font-size: 24px;
         }
         .author {
           font-size: 18px;
+          padding-bottom: 7px;
           align-self: end;
+          padding-right: 7px;
           text-align: right;
         }
       }

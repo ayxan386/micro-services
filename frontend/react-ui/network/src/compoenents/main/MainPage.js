@@ -4,7 +4,6 @@ import { loadPosts } from "../../actions/PostActions";
 import Post from "./post/Post";
 import { connect } from "react-redux";
 import "../../styles/main.css";
-import PostDetails from "./post/PostDetails";
 import { Redirect } from "react-router-dom";
 import UserDetailsPosterWrapper from "./user details/UserDetailsPosterWrapper";
 import PostDetailsCommenterWrapper from "./post/PostDetailsCommenterWrapper";
@@ -28,6 +27,13 @@ export class MainPage extends Component {
     });
   };
 
+  normalState = () => {
+    this.setState({
+      activePostId: -1,
+      postDetails: false,
+    });
+  };
+
   render() {
     return (
       <>
@@ -39,17 +45,15 @@ export class MainPage extends Component {
           <div className='main-post-container'>
             <div className='main-posts'>
               {this.props.posts &&
-                this.props.posts
-                  .filter((post, index) => index < this.props.pageSize)
-                  .map((post) => (
-                    <Post
-                      key={post.id}
-                      id={post.id}
-                      title={post.title}
-                      body={post.body}
-                      author={post.author}
-                      onClickCallBack={this.callback}></Post>
-                  ))}
+                this.props.posts.map((post) => (
+                  <Post
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    body={post.body}
+                    author={post.author}
+                    onClickCallBack={this.callback}></Post>
+                ))}
             </div>
           </div>
           {!this.state.postDetails ? (
@@ -58,6 +62,7 @@ export class MainPage extends Component {
             <PostDetailsCommenterWrapper
               postId={this.state.activePostId}
               posts={this.props.posts}
+              closeDetails={this.normalState}
             />
           )}
         </div>

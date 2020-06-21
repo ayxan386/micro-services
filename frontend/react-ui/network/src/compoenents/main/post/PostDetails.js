@@ -6,7 +6,8 @@ export class PostDetails extends Component {
     if (!this.props.post) {
       return null;
     }
-    const { title, body, nickname } = this.props.post;
+    const { title, body, comments } = this.props.post;
+    const { nickname } = this.props.post.author;
     return (
       <div className='post-details'>
         <div className='post'>
@@ -18,12 +19,17 @@ export class PostDetails extends Component {
         </div>
         <Comments
           comments={
-            this.props.comments || [
-              {
-                body: "hello to you too",
-                author: "not aykhan",
-              },
-            ]
+            comments.length > 0
+              ? comments || [
+                  {
+                    body: "Be first to comment on this post",
+                  },
+                ]
+              : [
+                  {
+                    body: "Be first to comment on this post",
+                  },
+                ]
           }
         />
       </div>
