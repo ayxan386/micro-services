@@ -10,12 +10,9 @@ import org.mapstruct.Mapping;
 
 import static org.mapstruct.ReportingPolicy.IGNORE;
 
-@Mapper(unmappedTargetPolicy = IGNORE, uses = UserMapper.class, componentModel = "spring")
+@Mapper(unmappedTargetPolicy = IGNORE, uses = {UserMapper.class, CommentMapper.class}, componentModel = "spring")
 public interface PostMapper {
   PostResponse postDMtoResponse(PostDM byId);
-
-  @Mapping(source = "postId.id", target = "postId")
-  CommentResponse commentDMToResponse(CommentsDM commentsDM);
 
   PostDM postReqToDM(PostRequest postRequest);
 }

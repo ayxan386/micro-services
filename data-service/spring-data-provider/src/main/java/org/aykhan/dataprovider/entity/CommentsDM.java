@@ -22,7 +22,11 @@ public class CommentsDM {
 
   @ManyToOne(cascade = ALL, fetch = LAZY)
   @JoinColumn(name = "postId")
-  private PostDM postId;
+  private PostDM post;
+
+  @ManyToOne(cascade = ALL, fetch = LAZY)
+  @JoinColumn(name = "authorId")
+  private UserDM author;
 
   private String body;
 }
