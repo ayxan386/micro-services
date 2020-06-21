@@ -59,12 +59,13 @@ public class CommentServiceImpl implements CommentService {
   @Override
   public String delete(CommentRequest request) {
     commentDMRepository
-        .delete(
+        .save(
             commentDMRepository.findById(Long.valueOf(request.getCommentId()))
                 //TODO when the access levels are finally added make so that admins/moderators can delete any comment
                 .filter(comment -> comment.getAuthor().getNickname().equals(injectorConfig.getUser().getUsername()))
                 .map(comment -> {
                   comment.setAuthor(null);
+                  comment.setPost(null);
                   return comment;
                 })
                 .orElseThrow(() -> {
