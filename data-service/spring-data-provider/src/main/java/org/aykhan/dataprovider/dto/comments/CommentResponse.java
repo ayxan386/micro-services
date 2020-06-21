@@ -12,6 +12,7 @@ import org.aykhan.dataprovider.dto.user.UserResponse;
 @Builder
 public class CommentResponse {
   private Long postId;
+  private Long commentId;
   private String body;
   private UserResponse author;
 }

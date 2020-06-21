@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CommentRequest {
   private String body;
+  private String commentId;
   private String postId;
 }

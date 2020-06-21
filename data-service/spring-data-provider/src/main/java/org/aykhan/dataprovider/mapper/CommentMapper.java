@@ -13,5 +13,6 @@ public interface CommentMapper {
   CommentsDM requestToDM(CommentRequest request);
 
   @Mapping(source = "post.id", target = "postId")
+  @Mapping(source = "id", target = "commentId")
   CommentResponse dmToResponse(CommentsDM dm);
 }
