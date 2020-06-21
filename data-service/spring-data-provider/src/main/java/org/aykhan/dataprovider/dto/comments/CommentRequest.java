@@ -4,15 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.aykhan.dataprovider.dto.user.UserResponse;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CommentResponse {
-  private Long postId;
-  private Long commentId;
+public class CommentRequest {
   private String body;
-  private UserResponse author;
+  private String commentId;
+  private String postId;
 }

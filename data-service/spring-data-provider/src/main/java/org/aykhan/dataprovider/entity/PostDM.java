@@ -24,7 +24,7 @@ public class PostDM {
   private String title;
   @ManyToOne
   private UserDM author;
-  @OneToMany(cascade = ALL, mappedBy = "postId")
+  @OneToMany(cascade = ALL, mappedBy = "post")
   private List<CommentsDM> comments;
   private String attachment;
 }
