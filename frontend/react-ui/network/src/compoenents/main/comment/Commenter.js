@@ -10,6 +10,10 @@ export class Commenter extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    this.props.makeComment(this.state.body);
+    this.setState({
+      body: "",
+    });
   };
 
   handleChange = (e) => {

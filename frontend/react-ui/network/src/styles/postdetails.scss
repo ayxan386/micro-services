@@ -1,46 +1,70 @@
 .post-details {
+  padding-top: 10px;
   align-self: center;
   justify-self: center;
   width: 100%;
   height: 100%;
+  display: grid;
+  grid-template-rows: 45% 55%;
   .post {
     color: black;
     font-size: 24px;
-    padding: 25px 15px;
     margin: 5px;
     background-color: white;
+    border: 2px solid #333;
     .title {
       text-align: center;
       font-size: 32px;
-      padding: 2px 2px 11px 2px;
-      margin: 4px;
+      padding: 2px 2px 5px 2px;
     }
     .body {
       font-size: 18px;
+      padding-left: 15px;
     }
     .author {
       font-size: 12.4px;
+      justify-self: right;
+      align-self: end;
+      padding-bottom: 10px;
+      padding-right: 10px;
     }
   }
   .comments {
     padding: 4px;
+    overflow: auto;
+    height: 100%;
+    border-top: 1px solid #333333;
     .comment {
       background-color: white;
       border: 1px solid black;
       border-radius: 5px;
-      padding: 4px;
       color: black;
       display: flex;
+      max-height: 6rem;
       .author {
-        width: 35%;
+        padding: 8px;
+        width: 30%;
         min-height: 4rem;
+        border-right: 1px solid #333;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        .img {
+          width: 80%;
+          height: auto;
+          border-radius: 50%;
+          margin-right: 7px;
+        }
       }
       .body {
+        padding: 8px;
         font-size: 18px;
-      }
-      .img {
-        width: 90%;
-        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-content: center;
+        justify-content: center;
       }
     }
   }
@@ -51,6 +75,26 @@
     grid-area: R;
     display: grid;
     grid-template-rows: 65% 35%;
+    position: relative;
+    .closing-button {
+      position: absolute;
+      z-index: 100;
+      left: 97%;
+      top: -15px;
+      float: right;
+      font-size: 54px;
+      color: black;
+      border-radius: 5px;
+      user-select: none;
+      &:hover {
+        cursor: pointer;
+        color: #555;
+      }
+      &:active {
+        background-color: #ccc;
+        color: blue;
+      }
+    }
   }
 }
 
@@ -67,7 +111,10 @@
     height: 100%;
     .form-control {
       width: 75%;
-      min-height: 4rem;
+      min-height: 8rem;
+      border: 2px solid black;
+      border-radius: 5px;
+      margin-bottom: 5px;
     }
   }
 }
