@@ -9,6 +9,8 @@ spring:
   redis:
     host: ${CACHE_IP:172.17.0.1}
     port: ${CACHE_PORT:6379}
+  profiles:
+    active: A
 server:
   port: 8080
 
