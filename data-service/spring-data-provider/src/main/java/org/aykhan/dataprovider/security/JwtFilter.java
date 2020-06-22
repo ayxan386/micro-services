@@ -3,6 +3,7 @@ package org.aykhan.dataprovider.security;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import org.aykhan.dataprovider.exception.unauth.InvalidTokenException;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Component
 @AllArgsConstructor
+@Profile("A")
 public class JwtFilter extends OncePerRequestFilter {
   private final JwtUtils jwtUtils;
 

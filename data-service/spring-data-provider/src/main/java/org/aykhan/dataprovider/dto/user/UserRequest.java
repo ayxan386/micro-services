@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class UserRequest {
-    private String name;
-    private String surname;
-    private String email;
-    private String nickname;
-    private String profilePicture;
+  private String name;
+  private String surname;
+  private String email;
+  private String nickname;
+  private String profilePicture;
 }

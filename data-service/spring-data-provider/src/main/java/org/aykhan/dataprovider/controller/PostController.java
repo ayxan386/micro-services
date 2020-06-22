@@ -22,6 +22,7 @@ public class PostController {
 
   @GetMapping
   public ResponseEntity<RestResponse<PostResponse>> getPost(@RequestBody PostRequest postRequest) {
+    log.info("getting post with {} id", postRequest.getId());
     return ResponseEntity.ok(
         new RestResponse<>(postService.get(postRequest), MESSAGE)
     );
@@ -29,6 +30,7 @@ public class PostController {
 
   @PostMapping
   public ResponseEntity<RestResponse<PostResponse>> addPost(@RequestBody PostRequest postRequest) {
+    log.info("adding new post");
     return ResponseEntity.ok(
         new RestResponse<>(postService.add(postRequest), MESSAGE)
     );
@@ -36,6 +38,7 @@ public class PostController {
 
   @PutMapping
   public ResponseEntity<RestResponse<PostResponse>> updatePost(@RequestBody PostRequest postRequest) {
+    log.info("updating existing post with {} id", postRequest.getId());
     return ResponseEntity.ok(
         new RestResponse<>(postService.update(postRequest), MESSAGE)
     );
@@ -43,6 +46,7 @@ public class PostController {
 
   @DeleteMapping
   public ResponseEntity<RestResponse<String>> deletePost(@RequestBody PostRequest postRequest) {
+    log.info("deleting post with {} id", postRequest.getId());
     return ResponseEntity.ok(
         new RestResponse<>(postService.delete(postRequest), MESSAGE)
     );
@@ -50,6 +54,7 @@ public class PostController {
 
   @GetMapping("/all")
   public ResponseEntity<RestResponse<List<PostResponse>>> getAll() {
+    log.info("getting all posts for this user");
     return ResponseEntity.ok(
         new RestResponse<>(postService.getAll(), MESSAGE)
     );

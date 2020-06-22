@@ -14,22 +14,22 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
+  private static final String BEARER = "Bearer ";
   @Value("${SECRET_KEY:secret}")
-  private String SECRET_KEY = "secret";
-  private static final String bearer = "Bearer ";
+  private final String secretKey = "secret";
 
   public String extractToken(HttpServletRequest req) {
     String token = req.getHeader(HttpHeaders.AUTHORIZATION);
-    if (StringUtils.isEmpty(token) || !token.contains(bearer))
+    if (StringUtils.isEmpty(token) || !token.contains(BEARER))
       throw new TokenNotFoundException();
 
-    return token.substring(bearer.length());
+    return token.substring(BEARER.length());
   }
 
   private Claims extractAllClaims(String token) {
     return Jwts
         .parser()
-        .setSigningKey(SECRET_KEY)
+        .setSigningKey(secretKey)
         .parseClaimsJws(token)
         .getBody();
   }

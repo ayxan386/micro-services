@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class RestResponse<T> {
-    private T data;
-    private String message;
+  private T data;
+  private String message;
 }

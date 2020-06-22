@@ -73,6 +73,7 @@ public class UserController {
 
   @PostMapping("/save")
   public ResponseEntity<RestResponse<String>> changeProfilePicture(@RequestParam(name = "file") MultipartFile file) {
+    log.info("uploading new profile picture");
     return ResponseEntity.ok(
         RestResponse.<String>builder()
             .message("success")

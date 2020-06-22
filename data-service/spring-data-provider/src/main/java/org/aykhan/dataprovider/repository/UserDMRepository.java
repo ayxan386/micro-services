@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserDMRepository extends CrudRepository<UserDM, Long> {
-    Optional<UserDM> getByNickname(String nickname);
+  Optional<UserDM> getByNickname(String nickname);
 }

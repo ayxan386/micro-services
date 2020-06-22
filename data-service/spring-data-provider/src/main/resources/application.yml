@@ -3,12 +3,14 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    username: postgres
-    password: pass
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:pass}
     url: jdbc:postgresql://${POSTGRES_IP:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:postgres}
   redis:
     host: ${CACHE_IP:172.17.0.1}
     port: ${CACHE_PORT:6379}
+  profiles:
+    active: A
 server:
   port: 8080
 
