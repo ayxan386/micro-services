@@ -17,36 +17,37 @@ import java.util.Collections;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .cors();
-        http
-                .csrf()
-                .disable();
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+        .cors();
+    http
+        .csrf()
+        .disable();
 
-        http
-                .authorizeRequests()
-                .antMatchers("/api**").authenticated()
-                .anyRequest().permitAll();
-    }
-    @Bean
-    public CorsConfigurationSource corsConfigure() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+    http
+        .authorizeRequests()
+        .antMatchers("/api**").authenticated()
+        .anyRequest().permitAll();
+  }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
-            }
-        };
-    }
+  @Bean
+  public CorsConfigurationSource corsConfigure() {
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(Collections.singletonList("*"));
+    configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+  }
+
+  @Bean
+  public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+      @Override
+      public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowedOrigins("*");
+      }
+    };
+  }
 }

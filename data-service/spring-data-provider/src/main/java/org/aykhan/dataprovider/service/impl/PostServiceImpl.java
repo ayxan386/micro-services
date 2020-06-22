@@ -2,7 +2,6 @@ package org.aykhan.dataprovider.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.aykhan.dataprovider.config.UserPrincipialInjectorConfig;
-import org.aykhan.dataprovider.dto.comments.CommentResponse;
 import org.aykhan.dataprovider.dto.post.PostRequest;
 import org.aykhan.dataprovider.dto.post.PostResponse;
 import org.aykhan.dataprovider.entity.PostDM;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -65,12 +65,15 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public String delete(PostRequest request) {
-    assert request.getId() != null;
-    postDMRepository
-        .findById(request.getId())
-        .ifPresentOrElse(postDMRepository::delete, () -> {
-          throw new NotFound("Post not found");
-        });
+    Optional.ofNullable(request.getId())
+        .ifPresentOrElse(id -> postDMRepository
+                .findById(id)
+                .ifPresentOrElse(postDMRepository::delete, () -> {
+                  throw new NotFound("Post not found");
+                }),
+            () -> {
+              throw new BadRequest("Post id is not provided");
+            });
     return "success";
   }
 

@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Builder
 @RedisHash
 public class UserResponse implements Serializable {
-    private String name;
-    private String surname;
-    private String email;
-    private String nickname;
-    private String profilePicture;
+  private String name;
+  private String surname;
+  private String email;
+  private String nickname;
+  private String profilePicture;
 }
