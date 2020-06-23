@@ -84,6 +84,31 @@
   justify-items: center;
   -ms-grid-rows: 35% 65%;
       grid-template-rows: 35% 65%;
+  position: relative;
+}
+
+.whole .right-wrapper .logout-button-holder {
+  position: absolute;
+  left: 90%;
+  top: 10px;
+  font-size: 24px;
+}
+
+.whole .right-wrapper .logout-button-holder .logout-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 5px;
+}
+
+.whole .right-wrapper .logout-button-holder .logout-button:hover {
+  background-color: #999;
+  border: 1px solid #777;
+}
+
+.whole .right-wrapper .logout-button-holder .logout-button:active {
+  background-color: #666;
+  border: 1px solid #444;
 }
 
 .whole .right-wrapper .user-details {
