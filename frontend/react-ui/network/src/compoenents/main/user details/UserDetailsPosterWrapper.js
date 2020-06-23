@@ -4,6 +4,7 @@ import Poster from "../post/Poster";
 import { getMyDetails, updatePhoto } from "../../../actions/UserActions";
 import { connect } from "react-redux";
 import { createPost } from "../../../actions/PostActions";
+import { logout } from "../../../actions/AuthActions";
 
 export class UserDetailsPosterWrapper extends Component {
   componentDidMount() {
@@ -17,6 +18,10 @@ export class UserDetailsPosterWrapper extends Component {
     this.props.createPost(title, body);
   };
 
+  logout = () => {
+    this.props.logout();
+  };
+
   render() {
     return (
       <div className='right-wrapper'>
@@ -25,6 +30,11 @@ export class UserDetailsPosterWrapper extends Component {
           handleFileSending={this.handleFileSending}
           userDetails={this.props.user}></UserDetails>
         <Poster post={this.createPost}></Poster>
+        <div className='logout-button-holder'>
+          <button className='logout-button' onClick={this.logout}>
+            Logout
+          </button>
+        </div>
       </div>
     );
   }
@@ -41,6 +51,7 @@ const mapDispatchToProps = (dispatch) => {
     getUserDetails: () => dispatch(getMyDetails()),
     updatePhoto: (file) => dispatch(updatePhoto(file)),
     createPost: (title, body) => dispatch(createPost(title, body)),
+    logout: () => dispatch(logout()),
   };
 };
 export default connect(

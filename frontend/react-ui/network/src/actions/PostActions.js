@@ -7,7 +7,7 @@ const base_url = "http://172.17.0.1:5002";
 export const loadPosts = () => {
   return (dispatch, getState) => {
     const { token } = getState().auth;
-    Axios.get(`${base_url}/api/post/all`, {
+    Axios.get(`${base_url}/api/post/all?page=0`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
