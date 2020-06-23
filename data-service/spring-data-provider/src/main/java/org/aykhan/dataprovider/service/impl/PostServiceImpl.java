@@ -12,6 +12,8 @@ import org.aykhan.dataprovider.mapper.PostMapper;
 import org.aykhan.dataprovider.repository.PostDMRepository;
 import org.aykhan.dataprovider.repository.UserDMRepository;
 import org.aykhan.dataprovider.service.PostService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -79,11 +81,27 @@ public class PostServiceImpl implements PostService {
   }
 
   @Override
-  public List<PostResponse> getAll() {
+  public List<PostResponse> getAllMine() {
     return postDMRepository
         .findAllByAuthor_Nickname(userInjector.getUser().getUsername())
         .stream()
         .map(postMapper::postDMtoResponse)
         .collect(toList());
   }
+
+  @Override
+  public List<PostResponse> getAll(int page, int pageSize) {
+    Sort sort = Sort.by(Sort.Direction.ASC, "updatedOn");
+    return Optional.of(postDMRepository.findAll(PageRequest.of(page, pageSize, sort))
+        .toList()
+        .stream()
+        .map(postMapper::postDMtoResponse)
+        .collect(toList()))
+        .filter(postResponses -> !postResponses.isEmpty())
+        .orElseThrow(() -> {
+          throw new NotFound("page is empty");
+        });
+  }
+
+
 }

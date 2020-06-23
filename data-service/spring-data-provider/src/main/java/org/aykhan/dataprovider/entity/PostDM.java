@@ -1,8 +1,11 @@
 package org.aykhan.dataprovider.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static javax.persistence.CascadeType.ALL;
@@ -27,4 +30,8 @@ public class PostDM {
   @OneToMany(cascade = ALL, mappedBy = "post")
   private List<CommentsDM> comments;
   private String attachment;
+  @CreationTimestamp
+  private LocalDateTime createdOn;
+  @UpdateTimestamp
+  private LocalDateTime updatedOn;
 }

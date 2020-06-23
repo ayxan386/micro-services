@@ -6,5 +6,7 @@ import org.aykhan.dataprovider.dto.post.PostResponse;
 import java.util.List;
 
 public interface PostService extends CrudService<PostRequest, PostResponse> {
-  List<PostResponse> getAll();
+  List<PostResponse> getAllMine();
+
+  List<PostResponse> getAll(int page, int pageSize);
 }
