@@ -39,6 +39,7 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public PostResponse add(PostRequest request) {
+    request.setId(null);
     PostDM postDM = postMapper.postReqToDM(request);
     UserDM userDM = userDMRepository
         .getByNickname(userInjector.getUser().getUsername())
