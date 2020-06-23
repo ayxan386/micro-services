@@ -1,8 +1,13 @@
-import { LOGIN_SUCCESS, LOGOUT } from "../../actions/ActionNames";
+import {
+  LOGIN_SUCCESS,
+  LOGOUT,
+  REGISTER_SUCCESS,
+} from "../../actions/ActionNames";
 
 const defState = {
   token: "",
   isLogged: false,
+  isRegistered: false,
 };
 
 export const authReducer = (state = defState, action) => {
@@ -12,7 +17,9 @@ export const authReducer = (state = defState, action) => {
     case LOGIN_SUCCESS:
       return { ...state, token: action.payload.token, isLogged: true };
     case LOGOUT:
-      return { ...state, token: "", isLogged: false };
+      return { ...state, ...defState };
+    case REGISTER_SUCCESS:
+      return { ...state, token: action.payload.token, isRegistered: true };
     default:
       return state;
   }
