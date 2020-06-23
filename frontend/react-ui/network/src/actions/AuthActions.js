@@ -27,7 +27,7 @@ const loginSuccess = (token) => {
   };
 };
 
-const logout = () => {
+export const logout = () => {
   return {
     type: LOGOUT,
   };
