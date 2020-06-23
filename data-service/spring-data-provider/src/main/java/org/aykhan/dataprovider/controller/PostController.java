@@ -9,6 +9,7 @@ import org.aykhan.dataprovider.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
@@ -53,10 +54,22 @@ public class PostController {
   }
 
   @GetMapping("/all")
-  public ResponseEntity<RestResponse<List<PostResponse>>> getAll() {
+  public ResponseEntity<RestResponse<List<PostResponse>>> getAll(
+      @RequestParam(name = "page", defaultValue = "1", required = false)
+      @Positive int page,
+      @RequestParam(name = "pageSize", defaultValue = "10", required = false)
+      @Positive int pageSize) {
+    log.info("getting all posts");
+    return ResponseEntity.ok(
+        new RestResponse<>(postService.getAll(page, pageSize), MESSAGE)
+    );
+  }
+
+  @GetMapping("/allMine")
+  public ResponseEntity<RestResponse<List<PostResponse>>> getAllMine() {
     log.info("getting all posts for this user");
     return ResponseEntity.ok(
-        new RestResponse<>(postService.getAll(), MESSAGE)
+        new RestResponse<>(postService.getAllMine(), MESSAGE)
     );
   }
 }

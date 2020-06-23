@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 public class DataProviderApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(DataProviderApplication.class, args);
+    SpringApplication.run(DataProviderApplication.class);
   }
 
 }

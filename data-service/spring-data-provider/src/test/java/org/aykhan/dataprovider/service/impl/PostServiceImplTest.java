@@ -132,9 +132,9 @@ public class PostServiceImplTest {
   }
 
   @Test
-  public void getAll() {
+  public void getAllMine() {
     when(postDMRepository.findAllByAuthor_Nickname(anyString())).thenReturn(singletonList(postDM));
-    List<PostResponse> response = service.getAll();
+    List<PostResponse> response = service.getAllMine();
     assertThat(response).isNotEmpty();
   }
 }
