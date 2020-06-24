@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import UserDetails from "./UserDetails";
 import Poster from "../post/Poster";
-import { getMyDetails, updatePhoto } from "../../../actions/UserActions";
+import {
+  getMyDetails,
+  updatePhoto,
+  updateUserDetails,
+} from "../../../actions/UserActions";
 import { connect } from "react-redux";
 import { createPost } from "../../../actions/PostActions";
 import { logout } from "../../../actions/AuthActions";
@@ -28,7 +32,9 @@ export class UserDetailsPosterWrapper extends Component {
         <UserDetails
           className='user-details'
           handleFileSending={this.handleFileSending}
-          userDetails={this.props.user}></UserDetails>
+          userDetails={this.props.user}
+          updateUserDetails={this.props.updateUserDetails}
+        />
         <Poster post={this.createPost}></Poster>
         <div className='logout-button-holder'>
           <button className='logout-button' onClick={this.logout}>
@@ -50,6 +56,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getUserDetails: () => dispatch(getMyDetails()),
     updatePhoto: (file) => dispatch(updatePhoto(file)),
+    updateUserDetails: (body) => dispatch(updateUserDetails(body)),
     createPost: (title, body) => dispatch(createPost(title, body)),
     logout: () => dispatch(logout()),
   };

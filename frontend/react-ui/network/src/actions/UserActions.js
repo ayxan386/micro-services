@@ -45,3 +45,18 @@ export const updatePhoto = (file) => {
       .catch((err) => handleError(err.response.data));
   };
 };
+
+export const updateUserDetails = (body) => {
+  return (dispatch, getState) => {
+    const { token } = getState().auth;
+    Axios.put(`${url}/api/user`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        dispatch(getUserSuccess(res.data.data));
+      })
+      .catch((err) => handleError(err.response.data));
+  };
+};

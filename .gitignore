@@ -5,6 +5,8 @@ node_modules/
 *.iml
 .idea
 
+*.lock
+
 .env.*
 
 *mvn*
