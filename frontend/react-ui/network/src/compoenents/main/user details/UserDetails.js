@@ -57,6 +57,7 @@ export class UserDetails extends Component {
               name='Email'
               value={email}
               updateUser={this.updateUser}
+              className='smaller-font'
             />
             <InformationField
               name='Nickname'
@@ -72,6 +73,7 @@ export class UserDetails extends Component {
                 id='file'
                 name='file'
                 onChange={this.handleChange}
+                className='file-input'
               />
               <button type='submit' className='btn btn-dark'>
                 Change Photo

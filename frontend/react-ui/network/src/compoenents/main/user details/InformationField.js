@@ -37,7 +37,7 @@ export class InformationField extends Component {
           onChange={this.handleChange}
           className={`input ${
             this.state.isEditing ? "input-enabled" : "dummy"
-          }`}
+          } ${this.props.className || "dummy2"}`}
         />
         {this.state.isEditing ? (
           <button

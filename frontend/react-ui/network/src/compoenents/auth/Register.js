@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { register } from "../../actions/AuthActions";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import "../../styles/bootstrap.min.css";
 
 class Register extends Component {
@@ -102,6 +102,9 @@ class Register extends Component {
                 Sign Up
               </button>
             </div>
+            <div className='link'>
+              <Link to='/login'>Already have account yet?</Link>
+            </div>
           </form>
         )}
       </div>
@@ -112,7 +115,7 @@ class Register extends Component {
 const mapStateToProps = (state) => {
   const isRegistered = state.auth.isRegistered;
   return {
-    isRegistered: false,
+    isRegistered: isRegistered,
   };
 };
 

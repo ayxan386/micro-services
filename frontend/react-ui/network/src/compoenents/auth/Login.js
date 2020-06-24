@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { login } from "../../actions/AuthActions";
 import { connect } from "react-redux";
 import { Helmet } from "react-helmet";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 export class Login extends Component {
   constructor(props) {
@@ -60,6 +60,9 @@ export class Login extends Component {
               <button className='btn btn-dark' type='submit'>
                 Login
               </button>
+            </div>
+            <div className='link'>
+              <Link to='/register'>Don't have account yet?</Link>
             </div>
           </form>
         )}

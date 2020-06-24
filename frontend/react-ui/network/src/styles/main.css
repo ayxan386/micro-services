@@ -89,9 +89,9 @@
 
 .whole .right-wrapper .logout-button-holder {
   position: absolute;
-  left: 90%;
+  left: 92%;
   top: 10px;
-  font-size: 24px;
+  font-size: 21px;
 }
 
 .whole .right-wrapper .logout-button-holder .logout-button {
@@ -124,7 +124,7 @@
 .whole .right-wrapper .user-details #general-information {
   padding: 5px;
   color: black;
-  font-size: 24px;
+  font-size: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -179,7 +179,27 @@
   color: black;
 }
 
+.whole .right-wrapper .user-details #general-information .edit-button:hover {
+  background-color: #dddddd;
+}
+
+.whole .right-wrapper .user-details #general-information .smaller-font {
+  font-size: 16px;
+}
+
 .whole .right-wrapper .user-details #profile-picture {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 80%;
   border: 1px solid black;
   border-radius: 5px;
@@ -200,6 +220,10 @@
 
 .whole .right-wrapper .user-details #profile-picture #profile-form * {
   margin: 2px;
+}
+
+.whole .right-wrapper .user-details #profile-picture #profile-form .file-input {
+  max-width: 250px;
 }
 
 .whole .right-wrapper .user-details #profile-picture #profile-form .btn {
@@ -244,6 +268,10 @@
 
 .whole .right-wrapper .poster #poster * {
   margin: 4px;
+}
+
+.whole .right-wrapper .poster .btn {
+  border-radius: 5px;
 }
 
 .post {

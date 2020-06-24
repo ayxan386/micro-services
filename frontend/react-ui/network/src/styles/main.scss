@@ -61,9 +61,10 @@
     position: relative;
     .logout-button-holder {
       position: absolute;
-      left: 90%;
+      left: 92%;
       top: 10px;
-      font-size: 24px;
+
+      font-size: 21px;
       .logout-button {
         background-color: transparent;
         border: none;
@@ -89,7 +90,7 @@
       #general-information {
         padding: 5px;
         color: black;
-        font-size: 24px;
+        font-size: 20px;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
@@ -122,9 +123,19 @@
         .edit-button {
           background-color: #ffffff;
           color: black;
+          &:hover {
+            background-color: #dddddd;
+          }
+        }
+        .smaller-font {
+          font-size: 16px;
         }
       }
       #profile-picture {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        justify-content: center;
         width: 80%;
         border: 1px solid black;
         border-radius: 5px;
@@ -140,6 +151,9 @@
           padding-left: 4px;
           * {
             margin: 2px;
+          }
+          .file-input {
+            max-width: 250px;
           }
           .btn {
             padding: 5px 6px;
@@ -172,6 +186,9 @@
         * {
           margin: 4px;
         }
+      }
+      .btn {
+        border-radius: 5px;
       }
     }
   }
