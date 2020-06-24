@@ -11,9 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", methods = {OPTIONS, DELETE, PUT, POST, GET})
 @Slf4j
 public class UserController {
 

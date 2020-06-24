@@ -89,9 +89,9 @@
 
 .whole .right-wrapper .logout-button-holder {
   position: absolute;
-  left: 90%;
+  left: 92%;
   top: 10px;
-  font-size: 24px;
+  font-size: 21px;
 }
 
 .whole .right-wrapper .logout-button-holder .logout-button {
@@ -113,7 +113,7 @@
 
 .whole .right-wrapper .user-details {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   padding: 20px;
   display: -ms-grid;
   display: grid;
@@ -124,15 +124,86 @@
 .whole .right-wrapper .user-details #general-information {
   padding: 5px;
   color: black;
-  font-size: 24px;
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 1fr 1fr;
-      grid-template-columns: 1fr 1fr;
+  font-size: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-right: 7px;
+}
+
+.whole .right-wrapper .user-details #general-information .information-field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  padding-right: 15px;
+}
+
+.whole .right-wrapper .user-details #general-information .information-field .label {
+  display: block;
+  text-align: right;
+  padding-right: 6px;
+  width: 8rem;
+}
+
+.whole .right-wrapper .user-details #general-information .input {
+  width: 10.5rem;
+  height: 1.4rem;
+  color: black;
+  border: none;
+  background-color: transparent;
+}
+
+.whole .right-wrapper .user-details #general-information .input-enabled {
+  background-color: white;
+}
+
+.whole .right-wrapper .user-details #general-information .edit-button {
+  background-color: #ffffff;
+  color: black;
+}
+
+.whole .right-wrapper .user-details #general-information .edit-button:hover {
+  background-color: #dddddd;
+}
+
+.whole .right-wrapper .user-details #general-information .smaller-font {
+  font-size: 16px;
 }
 
 .whole .right-wrapper .user-details #profile-picture {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 80%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 7px 0px 7px;
 }
 
 .whole .right-wrapper .user-details #profile-picture img {
@@ -149,6 +220,10 @@
 
 .whole .right-wrapper .user-details #profile-picture #profile-form * {
   margin: 2px;
+}
+
+.whole .right-wrapper .user-details #profile-picture #profile-form .file-input {
+  max-width: 250px;
 }
 
 .whole .right-wrapper .user-details #profile-picture #profile-form .btn {
@@ -193,6 +268,10 @@
 
 .whole .right-wrapper .poster #poster * {
   margin: 4px;
+}
+
+.whole .right-wrapper .poster .btn {
+  border-radius: 5px;
 }
 
 .post {

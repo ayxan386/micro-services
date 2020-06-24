@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+
 @RestController
 @RequestMapping("/api/post")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", methods = {OPTIONS, DELETE, PUT, POST, GET})
 @Slf4j
 public class PostController {
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import InformationField from "./InformationField";
 import "../../../styles/main.css";
 
 export class UserDetails extends Component {
@@ -8,6 +9,7 @@ export class UserDetails extends Component {
       file: null,
     };
   }
+
   sendFile = (e) => {
     e.preventDefault();
     this.props.handleFileSending(this.state.file);
@@ -18,6 +20,17 @@ export class UserDetails extends Component {
       file: e.target.files[0],
     });
   };
+
+  updateUser = (fieldName, fieldValue) => {
+    const temp = {};
+    temp[fieldName.toLowerCase()] = fieldValue;
+    const body = {
+      ...this.props.userDetails,
+      ...temp,
+    };
+    this.props.updateUserDetails(body);
+  };
+
   render() {
     if (this.props.userDetails) {
       const {
@@ -25,20 +38,32 @@ export class UserDetails extends Component {
         surname,
         nickname,
         profilePicture,
+        email,
       } = this.props.userDetails;
       return (
         <div className='user-details'>
           <div id='general-information'>
-            <div>
-              <div className='info'>Name:</div>
-              <div className='info'>Surname:</div>
-              <div className='info'>Nickname:</div>
-            </div>
-            <div>
-              <div>{name}</div>
-              <div>{surname}</div>
-              <div>{nickname}</div>
-            </div>
+            <InformationField
+              name='Name'
+              value={name}
+              updateUser={this.updateUser}
+            />
+            <InformationField
+              name='Surname'
+              value={surname}
+              updateUser={this.updateUser}
+            />
+            <InformationField
+              name='Email'
+              value={email}
+              updateUser={this.updateUser}
+              className='smaller-font'
+            />
+            <InformationField
+              name='Nickname'
+              value={nickname}
+              updateUser={this.updateUser}
+            />
           </div>
           <div id='profile-picture'>
             <img src={profilePicture} alt='profile'></img>
@@ -48,6 +73,7 @@ export class UserDetails extends Component {
                 id='file'
                 name='file'
                 onChange={this.handleChange}
+                className='file-input'
               />
               <button type='submit' className='btn btn-dark'>
                 Change Photo
