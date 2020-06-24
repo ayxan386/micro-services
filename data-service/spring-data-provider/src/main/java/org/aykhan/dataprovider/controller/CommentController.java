@@ -10,9 +10,12 @@ import org.aykhan.dataprovider.service.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+
 @RestController
 @Slf4j
 @RequestMapping("/api/comment")
+@CrossOrigin(origins = "*", methods = {OPTIONS, DELETE, PUT, POST, GET})
 @RequiredArgsConstructor
 public class CommentController {
 
