@@ -7,8 +7,14 @@ export class InformationField extends Component {
     super(props);
     this.state = {
       isEditing: false,
-      value: this.props.value || "",
+      value: "",
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      value: this.props.value,
+    });
   }
 
   toggleField = (name) => {
@@ -23,6 +29,7 @@ export class InformationField extends Component {
   handleChange = (e) => {
     this.setState({
       value: e.target.value,
+      startedEditing: true,
     });
   };
 
@@ -33,7 +40,9 @@ export class InformationField extends Component {
         <input
           disabled={!this.state.isEditing}
           name={this.props.name}
-          value={this.state.value}
+          value={
+            this.state.value !== undefined ? this.state.value : this.props.value
+          }
           onChange={this.handleChange}
           className={`input ${
             this.state.isEditing ? "input-enabled" : "dummy"
