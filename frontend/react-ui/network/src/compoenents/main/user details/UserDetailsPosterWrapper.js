@@ -23,6 +23,8 @@ export class UserDetailsPosterWrapper extends Component {
   };
 
   logout = () => {
+    console.log("logging out");
+
     this.props.logout();
   };
 
