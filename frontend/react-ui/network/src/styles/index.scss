@@ -42,3 +42,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+#error-handler {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .error-holder {
+    position: relative;
+    top: -7px;
+    padding-top: 10px;
+    color: black;
+    width: 25rem;
+    height: 5rem;
+    border: 3px solid red;
+    border-radius: 10px;
+    background-color: white;
+    text-align: center;
+  }
+}

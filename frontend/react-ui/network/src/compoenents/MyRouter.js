@@ -4,6 +4,7 @@ import Login from "./auth/Login";
 import MainPage from "./main/MainPage";
 import Logout from "./auth/Logout";
 import Register from "./auth/Register";
+import ErrorHandler from "./ErrorHandler";
 import { Helmet } from "react-helmet";
 
 export class MyRouter extends Component {
@@ -13,12 +14,13 @@ export class MyRouter extends Component {
         <Helmet>
           <title>A Social Network</title>
         </Helmet>
+        <ErrorHandler></ErrorHandler>
         <BrowserRouter>
           <Route path='/login' component={Login}></Route>
           <Route path='/logout' component={Logout}></Route>
           <Route path='/register' component={Register}></Route>
           <Route path='/mainPage' component={MainPage}></Route>
-          <Route path='/' component={MainPage}></Route>
+          <Route exact path='/' component={MainPage}></Route>
         </BrowserRouter>
       </>
     );

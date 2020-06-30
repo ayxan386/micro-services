@@ -55,4 +55,28 @@ html .main-form .link,
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+#error-handler {
+  position: absolute;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#error-handler .error-holder {
+  position: relative;
+  top: -7px;
+  padding-top: 10px;
+  color: black;
+  width: 25rem;
+  height: 5rem;
+  border: 3px solid red;
+  border-radius: 10px;
+  background-color: white;
+  text-align: center;
+}
 /*# sourceMappingURL=index.css.map */

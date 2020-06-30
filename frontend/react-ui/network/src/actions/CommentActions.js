@@ -20,6 +20,6 @@ export const makeComment = (body, postId) => {
       .then((response) => {
         dispatch(loadPosts());
       })
-      .catch((err) => handleError(err.response.data));
+      .catch((err) => dispatch(handleError(err.response.data)));
   };
 };

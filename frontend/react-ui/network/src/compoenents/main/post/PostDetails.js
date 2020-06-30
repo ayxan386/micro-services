@@ -19,12 +19,8 @@ export class PostDetails extends Component {
         </div>
         <Comments
           comments={
-            comments.length > 0
-              ? comments || [
-                  {
-                    body: "Be first to comment on this post",
-                  },
-                ]
+            comments.length > 0 && comments
+              ? comments
               : [
                   {
                     body: "Be first to comment on this post",

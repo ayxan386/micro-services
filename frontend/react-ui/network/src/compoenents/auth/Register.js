@@ -49,8 +49,6 @@ class Register extends Component {
         ? "is-valid"
         : "is-invalid"
       : "dummy";
-    console.log(inputClassName);
-
     return (
       <div className='main-div'>
         <Helmet>
@@ -103,7 +101,7 @@ class Register extends Component {
               </button>
             </div>
             <div className='link'>
-              <Link to='/login'>Already have account yet?</Link>
+              <Link to='/login'>Already have account?</Link>
             </div>
           </form>
         )}
