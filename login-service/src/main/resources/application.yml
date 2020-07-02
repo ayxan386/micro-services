@@ -1,6 +1,11 @@
 spring:
+  rabbitmq:
+    host: ${RABBIT_IP:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USERNAME:guest}
+    password: ${RABBIT_PASSWORD:guest}
   datasource:
-    url: jdbc:postgresql://${POSTGRES_IP:172.17.0.1}:${POSTGRES_POST:5432}/${POSTGRES_DATABASE:postgres}
+    url: jdbc:postgresql://${POSTGRES_IP:172.17.0.1}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE:postgres}
     password: ${POSTGRES_PASS:pass}
     username: ${POSTGRES_USER:postgres}
     driver-class-name: org.postgresql.Driver
@@ -8,17 +13,16 @@ spring:
     hibernate:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-#
-#logging:
-#  level:
-#    root: DEBUG
-#    org.springframework.web: ERROR
-#    org.aykhan: DEBUG
-#    org.hibernate: ERROR
+
 SERVER:
   IP: ${SERVER_IP:localhost}
 
 server:
-  port: 8080
+  port: 8081
   servlet:
     context-path: /auth
+
+rabbitmq:
+  queue: ${RABBIT_PRIME_QUEUE:test_queue}
+  routing:
+    data-provider: ${RABBIT_DATA_PROVIDER_RK:ms.dataprovider}

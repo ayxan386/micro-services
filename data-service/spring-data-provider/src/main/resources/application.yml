@@ -1,4 +1,9 @@
 spring:
+  rabbitmq:
+    host: ${RABBIT_IP:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USERNAME:guest}
+    password: ${RABBIT_PASSWORD:guest}
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,8 +17,13 @@ spring:
   profiles:
     active: A
 server:
-  port: 8080
+  port: 8082
 
 urls:
   content:
     base: ${CONTENT_URL:http://localhost:5003/content}
+
+rabbitmq:
+  queue: ${RABBIT_PRIME_QUEUE:test_queue}
+  routing:
+    data-provider: ${RABBIT_DATA_PROVIDER_RK:ms.dataprovider}
