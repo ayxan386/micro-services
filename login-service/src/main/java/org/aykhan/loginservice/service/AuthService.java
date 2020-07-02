@@ -1,20 +1,22 @@
 package org.aykhan.loginservice.service;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aykhan.loginservice.clients.DataClient;
 import org.aykhan.loginservice.dto.JwtResponse;
 import org.aykhan.loginservice.dto.LoginDTO;
 import org.aykhan.loginservice.dto.RegisterRequest;
-import org.aykhan.loginservice.dto.user.UserDTO;
+import org.aykhan.loginservice.dto.user.UserRequest;
 import org.aykhan.loginservice.entity.MyUserDetails;
 import org.aykhan.loginservice.exception.BadAuthException;
-import org.aykhan.loginservice.exception.BadRequest;
 import org.aykhan.loginservice.exception.LoginFailedException;
 import org.aykhan.loginservice.exception.UserAlreadyExists;
 import org.aykhan.loginservice.mapper.UserMapper;
 import org.aykhan.loginservice.repository.UserDetailsRepository;
 import org.aykhan.loginservice.security.jwt.JwtUtil;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,15 +24,23 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static org.aykhan.loginservice.config.RabbitMQConfig.AUTH_TOPIC_EXCHANGE;
+
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Slf4j
 public class AuthService {
+
   private final PasswordEncoder encoder;
   private final UserMapper mapper;
   private final UserDetailsRepository userDetailsRepository;
   private final JwtUtil jwtUtil;
   private final AuthenticationManager authManager;
-  private final DataClient dataClient;
+  private final ObjectMapper objectMapper;
+  private final RabbitTemplate rabbitTemplate;
+
+  @Value("${rabbitmq.routing.data-provider}")
+  private String dataProviderRK;
 
   public JwtResponse login(LoginDTO loginDTO) {
     return generateTokenFromEntity(
@@ -53,10 +63,12 @@ public class AuthService {
         .orElseThrow(UserAlreadyExists::new)
     );
 
+    UserRequest userRequest = UserRequest.builder().nickname(registerRequest.getUsername()).build();
     try {
-      dataClient.saveUser("Bearer " + token.getToken(), UserDTO.builder().nickname(registerRequest.getUsername()).build());
-    } catch (Exception e) {
-      throw new BadRequest(e.getMessage());
+      rabbitTemplate.convertAndSend(AUTH_TOPIC_EXCHANGE, dataProviderRK + ".add",
+          objectMapper.writeValueAsBytes(userRequest));
+    } catch (JsonProcessingException e) {
+      log.error("Exception thrown while processing JSON {}", e.getMessage());
     }
 
     return token;

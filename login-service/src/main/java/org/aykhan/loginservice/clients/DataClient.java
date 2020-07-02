@@ -1,6 +1,6 @@
 package org.aykhan.loginservice.clients;
 
-import org.aykhan.loginservice.dto.user.UserDTO;
+import org.aykhan.loginservice.dto.user.UserRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,5 +16,5 @@ public interface DataClient {
   @PostMapping("/user")
   String saveUser(
       @RequestHeader(value = AUTHORIZATION) String token,
-      @RequestBody UserDTO userDetails);
+      @RequestBody UserRequest userDetails);
 }
