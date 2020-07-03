@@ -6,10 +6,19 @@ spring:
     port: ${RABBIT_PORT:5672}
     username: ${RABBIT_USERNAME:guest}
     password: ${RABBIT_PASSWORD:guest}
-
+  data:
+    elasticsearch:
+      properties:
+        path:
+          home:target/elastic-embedded
+        transport:
+          tcp:
+            connect_timeout:60s
 
 rabbitmq:
   queue: ${RABBIT_PRIME_QUEUE:test_queue}
+  exchange:
+    logger: ${RABBIT_EXCHANGE_LOGGER:looger-topic-exchange}
   routing:
     data-provider: ${RABBIT_DATA_PROVIDER_RK:ms.dataprovider}
     logging: ${RABBIT_LOGGING_RK:ms.logging}

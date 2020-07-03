@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-  public static final String LOGGER_TOPIC_EXCHANGE = "logger-topic-exchange";
+  @Value("${rabbitmq.exchange.logger}")
+  public final String LOGGER_TOPIC_EXCHANGE = "logger-topic-exchange";
   @Value("${rabbitmq.queue}")
   private String queueName;
   @Value("${rabbitmq.routing.logging}")
