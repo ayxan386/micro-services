@@ -1,4 +1,4 @@
-package org.aykhan.dataprovider.config;
+package com.aykhand.logelasticsearch.config;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -10,13 +10,12 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-
   @Value("${rabbitmq.exchange}")
-  public String TOPIC_EXCHANGE = "auth-topic-exchange";
-  @Value("${rabbitmq.queue}")
+  public String TOPIC_EXCHANGE;
+  @Value("${rabbitmq.logque}")
   private String queueName;
-  @Value("${rabbitmq.routing.data-provider}")
-  private String dataProviderRK;
+  @Value("${rabbitmq.routing.logging}")
+  private String loggingRK;
 
   @Bean
   public TopicExchange exchange() {
@@ -30,7 +29,7 @@ public class RabbitMQConfig {
 
   @Bean
   public Binding binding(Queue queue, TopicExchange exchange) {
-    return BindingBuilder.bind(queue).to(exchange).with(dataProviderRK + ".*");
+    return BindingBuilder.bind(queue).to(exchange).with(loggingRK + ".*");
   }
 
 }

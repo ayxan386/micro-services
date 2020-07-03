@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  rabbitmq:
+    host: ${RABBIT_IP:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USERNAME:guest}
+    password: ${RABBIT_PASSWORD:guest}
+  data:
+    elasticsearch:
+      cluster-name: logs
+rabbitmq:
+  queue: ${RABBIT_PRIME_QUEUE:test_queue}
+  logque: ${RABBIT_LOG_QUEUE:log_queue}
+  exchange: ${RABBIT_EXCHANGE_LOGGER:auth-topic-exchange}
+  routing:
+    data-provider: ${RABBIT_DATA_PROVIDER_RK:ms.dataprovider}
+    logging: ${RABBIT_LOGGING_RK:ms.logging}
