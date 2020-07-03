@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  rabbitmq:
+    host: ${RABBIT_IP:localhost}
+    port: ${RABBIT_PORT:5672}
+    username: ${RABBIT_USERNAME:guest}
+    password: ${RABBIT_PASSWORD:guest}
+
+
+rabbitmq:
+  queue: ${RABBIT_PRIME_QUEUE:test_queue}
+  routing:
+    data-provider: ${RABBIT_DATA_PROVIDER_RK:ms.dataprovider}
+    logging: ${RABBIT_LOGGING_RK:ms.logging}
