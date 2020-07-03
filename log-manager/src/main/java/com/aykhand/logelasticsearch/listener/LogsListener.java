@@ -1,15 +1,30 @@
 package com.aykhand.logelasticsearch.listener;
 
+import com.aykhand.logelasticsearch.model.LogModel;
+import com.aykhand.logelasticsearch.repository.LogsRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class LogsListener {
-  @RabbitListener(queues = "${rabbitmq.queue}")
+  private final LogsRepository logsRepository;
+  private final ObjectMapper objectMapper;
+
+  @RabbitListener(queues = "${rabbitmq.logque}")
   public void onMessageReceived(byte[] rawMessage) {
-    String messageStr = new String(rawMessage);
-    log.info("received message {}", messageStr);
+    try {
+      LogModel logModel = objectMapper.readValue(rawMessage, LogModel.class);
+      log.info("received message {}", logModel);
+      logsRepository.save(logModel);
+    } catch (IOException e) {
+      log.error("Error occurred while processing message");
+    }
   }
 }

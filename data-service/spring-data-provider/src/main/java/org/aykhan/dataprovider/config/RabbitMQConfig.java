@@ -11,7 +11,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-  public static final String DATAPROVIDER_TOPIC_EXCHANGE = "auth-topic-exchange";
+  @Value("${rabbitmq.exchange}")
+  public String TOPIC_EXCHANGE = "auth-topic-exchange";
   @Value("${rabbitmq.queue}")
   private String queueName;
   @Value("${rabbitmq.routing.data-provider}")
@@ -19,7 +20,7 @@ public class RabbitMQConfig {
 
   @Bean
   public TopicExchange exchange() {
-    return new TopicExchange(DATAPROVIDER_TOPIC_EXCHANGE);
+    return new TopicExchange(TOPIC_EXCHANGE);
   }
 
   @Bean
@@ -29,7 +30,7 @@ public class RabbitMQConfig {
 
   @Bean
   public Binding binding(Queue queue, TopicExchange exchange) {
-    return BindingBuilder.bind(queue).to(exchange).with(dataProviderRK + ".#");
+    return BindingBuilder.bind(queue).to(exchange).with(dataProviderRK + ".*");
   }
 
 }

@@ -10,17 +10,16 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-
-  @Value("${rabbitmq.exchange.logger}")
-  public final String LOGGER_TOPIC_EXCHANGE = "logger-topic-exchange";
-  @Value("${rabbitmq.queue}")
+  @Value("${rabbitmq.exchange}")
+  public String TOPIC_EXCHANGE;
+  @Value("${rabbitmq.logque}")
   private String queueName;
   @Value("${rabbitmq.routing.logging}")
   private String loggingRK;
 
   @Bean
   public TopicExchange exchange() {
-    return new TopicExchange(LOGGER_TOPIC_EXCHANGE);
+    return new TopicExchange(TOPIC_EXCHANGE);
   }
 
   @Bean
@@ -30,7 +29,7 @@ public class RabbitMQConfig {
 
   @Bean
   public Binding binding(Queue queue, TopicExchange exchange) {
-    return BindingBuilder.bind(queue).to(exchange).with(loggingRK + ".#");
+    return BindingBuilder.bind(queue).to(exchange).with(loggingRK + ".*");
   }
 
 }

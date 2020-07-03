@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 public class LogModel {
   @Id
-  private Long id;
+  private String id;
   private String message;
   private String source;
   @CreatedDate

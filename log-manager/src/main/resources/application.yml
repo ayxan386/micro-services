@@ -8,17 +8,11 @@ spring:
     password: ${RABBIT_PASSWORD:guest}
   data:
     elasticsearch:
-      properties:
-        path:
-          home:target/elastic-embedded
-        transport:
-          tcp:
-            connect_timeout:60s
-
+      cluster-name: logs
 rabbitmq:
   queue: ${RABBIT_PRIME_QUEUE:test_queue}
-  exchange:
-    logger: ${RABBIT_EXCHANGE_LOGGER:looger-topic-exchange}
+  logque: ${RABBIT_LOG_QUEUE:log_queue}
+  exchange: ${RABBIT_EXCHANGE_LOGGER:auth-topic-exchange}
   routing:
     data-provider: ${RABBIT_DATA_PROVIDER_RK:ms.dataprovider}
     logging: ${RABBIT_LOGGING_RK:ms.logging}

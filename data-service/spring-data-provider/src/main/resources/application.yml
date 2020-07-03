@@ -25,5 +25,7 @@ urls:
 
 rabbitmq:
   queue: ${RABBIT_PRIME_QUEUE:test_queue}
+  exchange: ${RABBIT_EXCHANGE_LOGGER:auth-topic-exchange}
   routing:
+    logging: ${RABBIT_LOGGING_RK:ms.logging}
     data-provider: ${RABBIT_DATA_PROVIDER_RK:ms.dataprovider}

@@ -2,6 +2,7 @@ package org.aykhan.dataprovider.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.aykhan.dataprovider.config.UserPrincipialInjectorConfig;
+import org.aykhan.dataprovider.dto.LogDTO;
 import org.aykhan.dataprovider.dto.post.PostRequest;
 import org.aykhan.dataprovider.dto.post.PostResponse;
 import org.aykhan.dataprovider.entity.PostDM;
@@ -11,6 +12,7 @@ import org.aykhan.dataprovider.exception.notfound.NotFound;
 import org.aykhan.dataprovider.mapper.PostMapper;
 import org.aykhan.dataprovider.repository.PostDMRepository;
 import org.aykhan.dataprovider.repository.UserDMRepository;
+import org.aykhan.dataprovider.service.LogService;
 import org.aykhan.dataprovider.service.PostService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -30,6 +32,7 @@ public class PostServiceImpl implements PostService {
   private final PostMapper postMapper;
   private final UserPrincipialInjectorConfig userInjector;
   private final UserDMRepository userDMRepository;
+  private final LogService logService;
 
   @Override
   public PostResponse get(PostRequest request) {
@@ -91,6 +94,13 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<PostResponse> getAll(int page, int pageSize) {
+    logService.log(
+        LogDTO
+            .builder()
+            .source("data-provider")
+            .message(String.format("POST getAll with page: %d, pageSize: %d", page, pageSize))
+            .build()
+    );
     Sort sort = Sort.by(Sort.Direction.ASC, "updatedOn");
     return Optional.of(postDMRepository.findAll(PageRequest.of(page, pageSize, sort))
         .toList()
