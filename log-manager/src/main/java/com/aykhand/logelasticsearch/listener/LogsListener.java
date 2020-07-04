@@ -24,6 +24,7 @@ public class LogsListener {
       log.debug("received message {}", logModel);
       logsRepository.save(logModel);
     } catch (IOException e) {
+      e.printStackTrace();
       log.error("Error occurred while processing message");
     }
   }

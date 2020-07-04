@@ -1,5 +1,6 @@
 package org.aykhan.dataprovider.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,6 @@ public class LogDTO {
   private String responseBody;
   private String responseStatus;
   private String source;
+  @JsonFormat(pattern = "HH:mm:ss dd/MM/yyyy")
   private LocalDateTime requestTime;
 }

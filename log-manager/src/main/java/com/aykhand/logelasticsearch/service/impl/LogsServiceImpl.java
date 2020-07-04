@@ -16,4 +16,10 @@ public class LogsServiceImpl implements LogsService {
   public Iterable<LogModel> getAll() {
     return repository.findAll();
   }
+
+  @Override
+  public String deleteAll() {
+    repository.deleteAll();
+    return "success";
+  }
 }

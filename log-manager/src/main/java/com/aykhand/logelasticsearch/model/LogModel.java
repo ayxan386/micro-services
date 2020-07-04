@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 @Document(indexName = "logs")
@@ -23,5 +22,5 @@ public class LogModel {
   private String responseBody;
   private String responseStatus;
   private String source;
-  private LocalDateTime requestTime;
+  private String requestTime;
 }
