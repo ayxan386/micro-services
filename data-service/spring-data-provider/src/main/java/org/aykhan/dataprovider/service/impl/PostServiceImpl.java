@@ -11,7 +11,6 @@ import org.aykhan.dataprovider.exception.notfound.NotFound;
 import org.aykhan.dataprovider.mapper.PostMapper;
 import org.aykhan.dataprovider.repository.PostDMRepository;
 import org.aykhan.dataprovider.repository.UserDMRepository;
-import org.aykhan.dataprovider.service.LogService;
 import org.aykhan.dataprovider.service.PostService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -31,7 +30,6 @@ public class PostServiceImpl implements PostService {
   private final PostMapper postMapper;
   private final UserPrincipialInjectorConfig userInjector;
   private final UserDMRepository userDMRepository;
-  private final LogService logService;
 
   @Override
   public PostResponse get(PostRequest request) {

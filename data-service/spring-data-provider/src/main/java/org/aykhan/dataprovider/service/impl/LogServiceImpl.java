@@ -32,6 +32,5 @@ public class LogServiceImpl implements LogService {
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     }
-    log.info("message sent");
   }
 }
