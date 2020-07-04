@@ -9,6 +9,9 @@ spring:
   data:
     elasticsearch:
       cluster-name: logs
+elasticsearch:
+  host: ${ELASTIC_HOST:localhost}
+  port: ${ELASTIC_PORT:9200}
 rabbitmq:
   queue: ${RABBIT_PRIME_QUEUE:test_queue}
   logque: ${RABBIT_LOG_QUEUE:log_queue}
