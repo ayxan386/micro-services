@@ -25,6 +25,7 @@ public class LogServiceImpl implements LogService {
   @Override
   public void log(LogDTO logDTO) {
     try {
+      logDTO.setSource("data-provider");
       byte[] message = objectMapper.writeValueAsBytes(logDTO);
       rabbitTemplate
           .convertAndSend(exchangeName, loggingRK + ".add", message);

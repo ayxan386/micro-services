@@ -2,7 +2,6 @@ package org.aykhan.dataprovider.service.impl;
 
 import lombok.AllArgsConstructor;
 import org.aykhan.dataprovider.config.UserPrincipialInjectorConfig;
-import org.aykhan.dataprovider.dto.LogDTO;
 import org.aykhan.dataprovider.dto.post.PostRequest;
 import org.aykhan.dataprovider.dto.post.PostResponse;
 import org.aykhan.dataprovider.entity.PostDM;
@@ -94,13 +93,6 @@ public class PostServiceImpl implements PostService {
 
   @Override
   public List<PostResponse> getAll(int page, int pageSize) {
-    logService.log(
-        LogDTO
-            .builder()
-            .source("data-provider")
-            .message(String.format("POST getAll with page: %d, pageSize: %d", page, pageSize))
-            .build()
-    );
     Sort sort = Sort.by(Sort.Direction.ASC, "updatedOn");
     return Optional.of(postDMRepository.findAll(PageRequest.of(page, pageSize, sort))
         .toList()

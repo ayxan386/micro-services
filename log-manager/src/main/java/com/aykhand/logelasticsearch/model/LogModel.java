@@ -1,11 +1,11 @@
 package com.aykhand.logelasticsearch.model;
 
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Document(indexName = "logs")
 @Data
@@ -16,8 +16,12 @@ import java.time.LocalDateTime;
 public class LogModel {
   @Id
   private String id;
-  private String message;
+  private String requestUrl;
+  private String requestBody;
+  private Map<String, String> requestParams;
+  private String method;
+  private String responseBody;
+  private String responseStatus;
   private String source;
-  @CreatedDate
-  private LocalDateTime createdAt;
+  private LocalDateTime requestTime;
 }
