@@ -1,9 +1,9 @@
-package org.aykhan.dataprovider.filters.logger;
+package org.aykhan.loginservice.logger;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aykhan.dataprovider.dto.LogDTO;
-import org.aykhan.dataprovider.service.LogService;
+import org.aykhan.loginservice.dto.LogDTO;
+import org.aykhan.loginservice.service.LogService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerExecutionChain;
@@ -92,7 +92,6 @@ public class LoggingFilter extends DispatcherServlet {
   private String getResponsePayload(HttpServletResponse response) {
     ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class);
     if (wrapper != null) {
-
       byte[] buf = wrapper.getContentAsByteArray();
       if (buf.length > 0) {
         int length = buf.length;
