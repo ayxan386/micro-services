@@ -57,7 +57,7 @@ object Post extends SQLSyntaxSupport[Post] {
   }
 
   def findAll()(implicit session: DBSession = autoSession): List[Post] = {
-    val (u, c) = (User.syntax("u"), Comment.syntax("u"))
+    val (u, c) = (User.syntax("u"), Comment.syntax("c"))
     withSQL(
       select
         .from(Post as p)
@@ -72,7 +72,7 @@ object Post extends SQLSyntaxSupport[Post] {
   }
 
   def findAllPaged(page: Int, pageSize: Int)(implicit session: DBSession = autoSession): List[Post] = {
-    val (u, c) = (User.syntax("u"), Comment.syntax("u"))
+    val (u, c) = (User.syntax("u"), Comment.syntax("c"))
     withSQL(
       select
         .from(Post as p)

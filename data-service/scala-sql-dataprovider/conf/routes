@@ -1,2 +1,2 @@
-->        /api/posts        routers.PostRouter
+->        /api/post        routers.PostRouter
       
