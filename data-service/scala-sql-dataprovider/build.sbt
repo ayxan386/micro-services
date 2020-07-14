@@ -18,6 +18,7 @@ libraryDependencies ++= Seq(
   "org.scalikejdbc" %% "scalikejdbc-config" % "3.4.0",
   "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.4"
 )
+libraryDependencies += "io.jsonwebtoken" % "jjwt" % "0.9.1"
 
 enablePlugins(ScalikejdbcPlugin)
 
