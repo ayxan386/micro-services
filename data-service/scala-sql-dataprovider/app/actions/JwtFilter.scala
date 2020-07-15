@@ -6,7 +6,7 @@ import errors.{HeaderNotFoundError, InvalidTokenError}
 import javax.inject.{Inject, Singleton}
 import play.api.libs.typedmap.TypedKey
 import play.api.mvc.{Filter, RequestHeader, Result}
-import util.JwtUtils
+import util.{JwtUtils, MyAttrs}
 
 import scala.concurrent.Future
 
@@ -24,7 +24,7 @@ class JwtFilter @Inject()(matV: Materializer, jwtUtils: JwtUtils) extends Filter
       auth => jwtUtils.extractToken(auth)
     }
     if (jwtUtils.isValid(token)) {
-      f.apply(rh.addAttr(TypedKey[String]("username"), jwtUtils.getUserName(token)))
+      f.apply(rh.addAttr(MyAttrs.username, jwtUtils.getUserName(token)))
     } else {
       throw InvalidTokenError()
     }

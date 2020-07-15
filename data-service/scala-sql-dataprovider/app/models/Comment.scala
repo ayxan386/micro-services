@@ -1,5 +1,6 @@
 package models
 
+import dto.CommentDTO
 import play.api.libs.json.Json
 import scalikejdbc._
 
@@ -30,6 +31,8 @@ object Comment extends SQLSyntaxSupport[Comment] {
     postId = rs.get(c.postId),
     authorId = rs.get(c.authorId)
   )
+
+  def fromDTO(dto: CommentDTO): Comment = new Comment(id = dto.id, body = dto.body, authorId = dto.authorId, postId = dto.postId)
 
   val c = Comment.syntax("tc")
 

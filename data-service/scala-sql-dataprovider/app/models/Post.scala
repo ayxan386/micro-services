@@ -1,7 +1,10 @@
 package models
 
 import java.time.ZonedDateTime
+import java.util.Random
 
+import com.aventrix.jnanoid.jnanoid.NanoIdUtils
+import dto.PostDTO
 import play.api.libs.json.Json
 import scalikejdbc._
 
@@ -24,6 +27,18 @@ case class Post(
 
 
 object Post extends SQLSyntaxSupport[Post] {
+  def fromDto(dto: PostDTO): Post = {
+    new Post(
+      id = dto.id.getOrElse(NanoIdUtils.randomNanoId(new Random(), Array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'), 9).toLong),
+      attachment = dto.attachment,
+      body = dto.body,
+      title = dto.title,
+      author = User.fromDTO(dto.author),
+      comments = dto.comments.map(Comment.fromDTO),
+      updatedOn = dto.updatedOn
+    )
+  }
+
 
   override val tableName = "t_post"
 
