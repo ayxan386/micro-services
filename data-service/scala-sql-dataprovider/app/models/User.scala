@@ -1,5 +1,6 @@
 package models
 
+import dto.UserDTO
 import play.api.libs.json.Json
 import scalikejdbc._
 
@@ -19,6 +20,25 @@ case class User(
 
 
 object User extends SQLSyntaxSupport[User] {
+
+  def fromDTO(dto: UserDTO): User = {
+    new User(
+      id = dto.id,
+      email = dto.email,
+      name = dto.name,
+      nickname = dto.nickname,
+      profilePicture = dto.profilePicture,
+      surname = dto.surname
+    )
+  }
+
+  def fromDTO(dto: Option[UserDTO]): Option[User] = {
+    dto match {
+      case Some(d) => Option(fromDTO(d))
+      case None => None
+    }
+  }
+
 
   override val tableName = "t_user"
 
@@ -44,6 +64,12 @@ object User extends SQLSyntaxSupport[User] {
   def find(id: Long)(implicit session: DBSession = autoSession): Option[User] = {
     withSQL {
       select.from(User as u).where.eq(u.id, id)
+    }.map(User(u.resultName)).single.apply()
+  }
+
+  def findByUsername(username: String)(implicit session: DBSession = autoSession): Option[User] = {
+    withSQL {
+      select.from(User as u).where.eq(u.nickname, username)
     }.map(User(u.resultName)).single.apply()
   }
 
