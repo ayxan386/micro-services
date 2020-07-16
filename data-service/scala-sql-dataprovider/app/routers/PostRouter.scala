@@ -11,5 +11,6 @@ class PostRouter @Inject()(postController: PostController) extends SimpleRouter 
     case GET(p"/all/paged" ? q"page=${page}" & q"pageSize=${pageSize}") => postController.getAllPosts(page.toInt, pageSize.toInt)
     case GET(p"/all") => postController.getAllPosts()
     case POST(p"") => postController.savePost()
+    case PUT(p"") => postController.updatePost()
   }
 }
