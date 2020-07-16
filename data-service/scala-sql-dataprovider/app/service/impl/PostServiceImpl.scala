@@ -3,6 +3,7 @@ package service.impl
 import java.time.ZonedDateTime
 
 import dto.PostDTO
+import errors.NotFoundError
 import javax.inject.Singleton
 import models.Post
 import play.api.Logger
@@ -19,7 +20,6 @@ class PostServiceImpl extends PostService {
   override def add(req: PostDTO): PostDTO = {
     val post = Post
       .fromDto(req)
-    println(s"post entity before save ${post}")
     val saved = Post.create(
       id = post.id,
       attachment = post.attachment,
@@ -29,13 +29,18 @@ class PostServiceImpl extends PostService {
       createdOn = Option(ZonedDateTime.now()),
       updatedOn = Option(ZonedDateTime.now())
     )
-    println(s"post after saving ${saved}")
     PostDTO.fromEntity(
       saved
     )
   }
 
-  override def update(req: PostDTO): PostDTO = ???
+  override def update(req: PostDTO): PostDTO = {
+    req.id
+      .flatMap(id => Post.find(id).map({ post: Post => post.copy(body = req.body, title = req.title) }))
+      .map(Post.save(_))
+      .map(PostDTO.fromEntity)
+      .getOrElse(throw NotFoundError("Post with that id could not be found", None))
+  }
 
   override def delete(req: PostDTO): PostDTO = ???
 
