@@ -3,7 +3,7 @@ package service.impl
 import java.time.ZonedDateTime
 
 import dto.PostDTO
-import errors.NotFoundError
+import errors.notfound.{MissingValue, PostNotFoundError}
 import javax.inject.Singleton
 import models.Post
 import play.api.Logger
@@ -15,7 +15,12 @@ class PostServiceImpl extends PostService {
 
   val log = Logger.apply(classOf[PostServiceImpl])
 
-  override def getById(req: PostDTO): PostDTO = ???
+  override def getById(req: PostDTO): PostDTO = {
+    PostDTO.fromEntity(
+      Post.find(req.id.getOrElse(throw MissingValue("id")))
+        .getOrElse(throw PostNotFoundError())
+    )
+  }
 
   override def add(req: PostDTO): PostDTO = {
     val post = Post
@@ -39,10 +44,14 @@ class PostServiceImpl extends PostService {
       .flatMap(id => Post.find(id).map({ post: Post => post.copy(body = req.body, title = req.title) }))
       .map(Post.save(_))
       .map(PostDTO.fromEntity)
-      .getOrElse(throw NotFoundError("Post with that id could not be found", None))
+      .getOrElse(throw PostNotFoundError())
   }
 
-  override def delete(req: PostDTO): PostDTO = ???
+  override def delete(req: PostDTO): PostDTO = {
+    if (Post.destroy(Post.fromDto(req)) == 1)
+      req
+    else throw PostNotFoundError()
+  }
 
   override def getAllPaged(page: Int, pageSize: Int): Seq[PostDTO] = Post.findAllPaged(page, pageSize).map(PostDTO.fromEntity)
 }

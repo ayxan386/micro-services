@@ -20,7 +20,10 @@ libraryDependencies ++= Seq(
 )
 libraryDependencies += "io.jsonwebtoken" % "jjwt" % "0.9.1"
 libraryDependencies += "com.aventrix.jnanoid" % "jnanoid" % "2.0.0"
-
+libraryDependencies ++= Seq(
+  "org.scalatest" %% "scalatest" % "3.1.0" % "test",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test"
+)
 enablePlugins(ScalikejdbcPlugin)
 
 
