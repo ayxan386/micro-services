@@ -2,7 +2,8 @@ package actions
 
 import akka.http.scaladsl.model.headers.Authorization
 import akka.stream.Materializer
-import errors.{HeaderNotFoundError, InvalidTokenError}
+import errors.InvalidTokenError
+import errors.notfound.HeaderNotFoundError
 import javax.inject.{Inject, Singleton}
 import play.api.libs.typedmap.TypedKey
 import play.api.mvc.{Filter, RequestHeader, Result}

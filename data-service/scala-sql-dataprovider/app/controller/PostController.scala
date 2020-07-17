@@ -1,7 +1,7 @@
 package controller
 
 import dto.{PostDTO, UserDTO}
-import errors.{NotFoundError, RequestBodyMissingError}
+import errors.notfound.{NotFoundError, RequestBodyMissingError}
 import javax.inject.{Inject, Singleton}
 import models.User
 import play.api.libs.json.Json
@@ -11,6 +11,22 @@ import util.MyAttrs
 
 @Singleton
 class PostController @Inject()(cc: ControllerComponents, postService: PostService) extends AbstractController(cc) {
+
+  def getById(id: Long): Action[AnyContent] = Action {
+    request =>
+      Ok(Json.toJson(postService.getById(PostDTO(id = Option(id)))))
+  }
+
+  def deletePost(): Action[AnyContent] = Action {
+    request =>
+      request.body.asJson match {
+        case Some(jsonBody) =>
+          val postDTO = PostDTO(id = (jsonBody \ "id").asOpt[Long].orElse((jsonBody \ "id").asOpt[String].map(_.toLong)))
+          Ok(Json.toJson(postService.delete(postDTO)))
+        case None => throw RequestBodyMissingError()
+      }
+  }
+
 
   def getAllPosts(page: Int = 0, pageSize: Int = 20): Action[AnyContent] = Action { request =>
     val posts = postService.getAllPaged(page, pageSize)

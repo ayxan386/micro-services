@@ -10,7 +10,9 @@ class PostRouter @Inject()(postController: PostController) extends SimpleRouter 
   override def routes: Routes = {
     case GET(p"/all/paged" ? q"page=${page}" & q"pageSize=${pageSize}") => postController.getAllPosts(page.toInt, pageSize.toInt)
     case GET(p"/all") => postController.getAllPosts()
+    case GET(p"" ? q"id=${id}") => postController.getById(id.toLong)
     case POST(p"") => postController.savePost()
     case PUT(p"") => postController.updatePost()
+    case DELETE(p"") => postController.deletePost()
   }
 }
