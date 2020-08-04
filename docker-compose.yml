@@ -1,0 +1,65 @@
+version: '3.0'
+services:
+  auth:
+    # build: ./login-service
+    image: auth-service:2.1.0
+    ports:
+      - "5001:8081"
+    env_file:
+      - ./local.env
+    depends_on:
+      - message-queue
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  message-queue:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  data-provider:
+    image: spring-sql-dataprovider:2.1.0
+    #build: ./data-service/spring-data-provider
+    ports:
+      - "5002:8082"
+    env_file:
+      - ./local.env
+    depends_on:
+      - message-queue
+      - redis
+  content-manager:
+    image: content-manager-sql-spring:1.1.4
+    ports:
+      - "5003:8080"
+    env_file:
+      - ./local.env
+    depends_on:
+      - message-queue
+  elastic-search:
+    image: elasticsearch:7.6.2
+    ports:
+      - "9300:9300"
+      - "9200:9200"
+  log-manager:
+    image: log-manager:1.0.0
+    ports:
+      - "5004:8080"
+    env_file:
+      - ./local.env
+    depends_on:
+      - message-queue
+      - elastic-search
+  frontend:
+    image: network/react-ui:2.0.0
+    ports:
+      - "80:80"
+    depends_on:
+      - auth
+      - data-provider
+      - content-manager
+          
+        
+
+
+
