@@ -1,0 +1,6 @@
+# Routes
+
+
+-> /api/user	routers.UserRouter
+
+
