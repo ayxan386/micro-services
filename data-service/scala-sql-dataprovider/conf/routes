@@ -1,2 +1,4 @@
-->        /api/post        routers.PostRouter
-      
+# Routes
+
+
+-> /api/user	routers.UserRouter

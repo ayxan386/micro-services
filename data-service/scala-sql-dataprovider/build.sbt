@@ -1,32 +1,15 @@
-name := "scalasqldataprovider"
+name := """scala-sql-dataprovider"""
+organization := "com.aykhan"
 
-version := "1.0"
+version := "1.0-SNAPSHOT"
 
-lazy val `scalasqldataprovider` = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+scalaVersion := "2.13.3"
 
-resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
+libraryDependencies += guice
+libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 
-scalaVersion := "2.12.2"
+libraryDependencies += "io.getquill" %% "quill-async-postgres" % "3.5.2"
 
-libraryDependencies ++= Seq(jdbc, ehcache, ws, specs2 % Test, guice)
-
-libraryDependencies += "org.postgresql" % "postgresql" % "42.2.14"
-libraryDependencies ++= Seq(
-  "org.scalikejdbc" %% "scalikejdbc" % "3.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-config" % "3.4.0",
-  "org.scalikejdbc" %% "scalikejdbc-play-initializer" % "2.8.0-scalikejdbc-3.4"
-)
-libraryDependencies += "io.jsonwebtoken" % "jjwt" % "0.9.1"
-libraryDependencies += "com.aventrix.jnanoid" % "jnanoid" % "2.0.0"
-libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "3.1.0" % "test",
-  "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % "test"
-)
-enablePlugins(ScalikejdbcPlugin)
-
-
-unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")
-
-      
+libraryDependencies += "org.postgresql" % "postgresql" % "42.2.15"
