@@ -1,5 +1,8 @@
 package models
 
-case class User(id: Long, email: String, name: String, nickname: String, profilePicture: String, surname: String) {
-
-}
+case class User(id: Long,
+                email: Option[String],
+                name: Option[String],
+                nickname: String,
+                profilePicture: Option[String],
+                surname: Option[String]) {}

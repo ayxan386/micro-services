@@ -2,10 +2,12 @@ package dtos
 
 import play.api.libs.json.Json
 
-case class UserResponseDTO(email: String, name: String, nickname: String, profilePicture: String, surname: String) {
+case class UserResponseDTO(email: Option[String],
+                           name: Option[String],
+                           nickname: String,
+                           profilePicture: Option[String],
+                           surname: Option[String]) {}
 
-}
-
-object UserResponseDTO{
+object UserResponseDTO {
   implicit val writes = Json.writes[UserResponseDTO]
 }

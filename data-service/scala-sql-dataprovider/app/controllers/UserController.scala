@@ -14,7 +14,7 @@ class UserController @Inject()(
     extends AbstractController(cc) {
   def saveUser = ???
 
-  def getUserByName(username: String) = {
+  def getUserByName(username: String) = Action.async { implicit request =>
     userService
       .getByNickname(username)
       .map(u => Ok(Json.toJson(u)))

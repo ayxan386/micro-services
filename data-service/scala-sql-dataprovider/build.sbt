@@ -10,6 +10,11 @@ scalaVersion := "2.13.3"
 libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
 
+libraryDependencies += "io.getquill" %% "quill-async-postgres" % "3.5.2"
+
+libraryDependencies += "org.postgresql" % "postgresql" % "42.2.15"
+
+
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "scala-sql-dataprovider:com.aykhan.controllers._"
 
