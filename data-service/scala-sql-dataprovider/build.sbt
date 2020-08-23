@@ -13,3 +13,12 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0
 libraryDependencies += "io.getquill" %% "quill-async-postgres" % "3.5.2"
 
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.15"
+
+libraryDependencies += "io.jsonwebtoken" % "jjwt" % "0.9.1"
+
+
+// Adds additional packages into Twirl
+//TwirlKeys.templateImports += "scala-sql-dataprovider:com.aykhan.controllers._"
+
+// Adds additional packages into conf/routes
+// play.sbt.routes.RoutesKeys.routesImport += "scala-sql-dataprovider:com.aykhan.binders._"

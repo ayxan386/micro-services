@@ -1,5 +1,4 @@
 package error
 
-abstract class CommonHttpError(val message: String,val status: Int) extends Exception{
-
-}
+abstract class CommonHttpError(val message: String, val status: Int)
+    extends Exception {}
