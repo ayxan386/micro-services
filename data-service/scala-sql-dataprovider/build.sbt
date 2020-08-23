@@ -14,6 +14,8 @@ libraryDependencies += "io.getquill" %% "quill-async-postgres" % "3.5.2"
 
 libraryDependencies += "org.postgresql" % "postgresql" % "42.2.15"
 
+libraryDependencies += "io.jsonwebtoken" % "jjwt" % "0.9.1"
+
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "scala-sql-dataprovider:com.aykhan.controllers._"
