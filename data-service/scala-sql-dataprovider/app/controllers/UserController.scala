@@ -3,11 +3,16 @@ package controllers
 import javax.inject.{Inject, Singleton}
 import play.api.Logger
 import play.api.libs.json.Json
-import play.api.mvc.{AbstractController, ControllerComponents}
+import play.api.mvc.{
+  AbstractController,
+  Action,
+  AnyContent,
+  ControllerComponents
+}
 import services.UserService
 import typedKeys.TypedKeys
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class UserController @Inject()(
@@ -16,8 +21,6 @@ class UserController @Inject()(
     extends AbstractController(cc) {
 
   val logger = Logger(this.getClass)
-
-  def saveUser = ???
 
   def getUserByName(username: String) = Action.async { implicit request =>
     userService
@@ -33,4 +36,13 @@ class UserController @Inject()(
       .map(u => Ok(Json.toJson(u)))
   }
 
+  def deleteUser: Action[AnyContent] = ???
+
+  def updateUser = Action.async { implicit request =>
+    Future.successful(Ok("End point not implemented"))
+  }
+
+  def saveUser = Action.async { implicit request =>
+    Future.successful(Ok("End point not implemented"))
+  }
 }
