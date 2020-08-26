@@ -1,5 +1,7 @@
 package controllers
 
+import dtos.UserRequest
+import error.BodyNotProvided
 import javax.inject.{Inject, Singleton}
 import play.api.Logger
 import play.api.libs.json.Json
@@ -42,7 +44,14 @@ class UserController @Inject()(
     Future.successful(Ok("End point not implemented"))
   }
 
-  def saveUser = Action.async { implicit request =>
-    Future.successful(Ok("End point not implemented"))
+  def addUser = Action.async { implicit request =>
+    request.body.asJson match {
+      case Some(jsonBody) =>
+        val req = jsonBody.as[UserRequest]
+        userService
+          .add(req)
+          .map(req => Ok(Json.toJson(req)))
+      case None => throw BodyNotProvided()
+    }
   }
 }
