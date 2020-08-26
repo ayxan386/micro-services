@@ -41,7 +41,14 @@ class UserController @Inject()(
   def deleteUser: Action[AnyContent] = ???
 
   def updateUser = Action.async { implicit request =>
-    Future.successful(Ok("End point not implemented"))
+    request.body.asJson match {
+      case Some(jsonBody) =>
+        val req = jsonBody.as[UserRequest]
+        userService
+          .update(req)
+          .map(req => Ok(Json.toJson(req)))
+      case None => throw BodyNotProvided()
+    }
   }
 
   def addUser = Action.async { implicit request =>

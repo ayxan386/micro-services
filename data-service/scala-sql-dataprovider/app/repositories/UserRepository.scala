@@ -1,6 +1,6 @@
 package repositories
 
-import dtos.UserResponseDTO
+import dtos.{UserRequest, UserResponseDTO}
 import io.getquill.{PostgresAsyncContext, SnakeCase}
 import javax.inject.{Inject, Singleton}
 import models.User
@@ -29,5 +29,15 @@ class UserRepository @Inject()(implicit ex: ExecutionContext) {
       simpleUser.insert(user).returningGenerated(_.id)
     }
     ctx.run(q(lift(user))).map(id => user.copy(id = id))
+  }
+
+  def update(user: User): Future[User] = {
+    val q = quote { user: User =>
+      simpleUser
+        .filter(_.nickname == user.nickname)
+        .update(user)
+        .returning(user => user)
+    }
+    ctx.run(q(lift(user)))
   }
 }
