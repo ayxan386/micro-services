@@ -14,6 +14,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class UserServiceImpl @Inject()(userRepository: UserRepository)(
     implicit ex: ExecutionContext)
     extends UserService {
+
   val logger: Logger = Logger(this.getClass)
 
   override def getByNickname(username: String): Future[UserResponseDTO] = {
@@ -41,6 +42,9 @@ class UserServiceImpl @Inject()(userRepository: UserRepository)(
       .map(userToResponseDTO)
   }
 
+  override def delete(req: UserRequest): Future[String] =
+    userRepository.deleteByNickname(req.nickname)
+
   def requestToDM(req: UserRequest): User =
     User(id = -1,
          email = req.email,
@@ -61,5 +65,4 @@ class UserServiceImpl @Inject()(userRepository: UserRepository)(
                     surname = user.surname,
                     profilePicture = user.profilePicture,
                     nickname = user.nickname)
-
 }
