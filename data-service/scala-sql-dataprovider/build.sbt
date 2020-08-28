@@ -16,6 +16,8 @@ libraryDependencies += "org.postgresql" % "postgresql" % "42.2.15"
 
 libraryDependencies += "io.jsonwebtoken" % "jjwt" % "0.9.1"
 
+libraryDependencies += "org.mockito" % "mockito-core" % "3.5.7" % Test
+
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "scala-sql-dataprovider:com.aykhan.controllers._"
