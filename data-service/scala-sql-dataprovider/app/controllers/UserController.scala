@@ -1,6 +1,6 @@
 package controllers
 
-import dtos.UserRequest
+import dtos.{ResponseDTO, UserRequest}
 import error.BodyNotProvided
 import javax.inject.{Inject, Singleton}
 import play.api.Logger
@@ -22,11 +22,14 @@ class UserController @Inject()(
     userService: UserService)(implicit ex: ExecutionContext)
     extends AbstractController(cc) {
 
+  val SUCCESS_MESSAGE = "success"
+
   val logger = Logger(this.getClass)
 
   def getUserByName(username: String) = Action.async { implicit request =>
     userService
       .getByNickname(username)
+      .map(u => ResponseDTO.wrappedIn(u, SUCCESS_MESSAGE))
       .map(u => Ok(Json.toJson(u)))
   }
 
@@ -35,6 +38,7 @@ class UserController @Inject()(
       .get(TypedKeys.userType)
       .map(username => userService.getByNickname(username))
       .get
+      .map(u => ResponseDTO.wrappedIn(u, SUCCESS_MESSAGE))
       .map(u => Ok(Json.toJson(u)))
   }
 
@@ -44,6 +48,7 @@ class UserController @Inject()(
         val req = jsonBody.as[UserRequest]
         userService
           .delete(req)
+          .map(u => ResponseDTO.wrappedIn(u, SUCCESS_MESSAGE))
           .map(req => Ok(Json.toJson(req)))
       case None => throw BodyNotProvided()
     }
@@ -55,6 +60,7 @@ class UserController @Inject()(
         val req = jsonBody.as[UserRequest]
         userService
           .update(req)
+          .map(u => ResponseDTO.wrappedIn(u, SUCCESS_MESSAGE))
           .map(req => Ok(Json.toJson(req)))
       case None => throw BodyNotProvided()
     }
