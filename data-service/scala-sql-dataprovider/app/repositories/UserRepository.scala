@@ -40,4 +40,12 @@ class UserRepository @Inject()(implicit ex: ExecutionContext) {
     }
     ctx.run(q(lift(user)))
   }
+
+  def deleteByNickname(nickname: String): Future[String] = {
+    val q = quote { username: String =>
+      simpleUser.filter(_.nickname == username).delete
+    }
+    ctx.run(q(lift(nickname)))
+    Future.successful("success")
+  }
 }

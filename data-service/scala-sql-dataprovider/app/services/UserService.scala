@@ -8,6 +8,8 @@ import scala.concurrent.Future
 
 @ImplementedBy(classOf[UserServiceImpl])
 trait UserService {
+  def delete(req: UserRequest) : Future[String]
+
   def update(req: UserRequest) : Future[UserResponseDTO]
 
 

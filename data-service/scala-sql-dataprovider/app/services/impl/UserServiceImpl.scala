@@ -62,4 +62,6 @@ class UserServiceImpl @Inject()(userRepository: UserRepository)(
                     profilePicture = user.profilePicture,
                     nickname = user.nickname)
 
+  override def delete(req: UserRequest): Future[String] =
+    userRepository.deleteByNickname(req.nickname)
 }

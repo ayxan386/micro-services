@@ -38,7 +38,16 @@ class UserController @Inject()(
       .map(u => Ok(Json.toJson(u)))
   }
 
-  def deleteUser: Action[AnyContent] = ???
+  def deleteUser: Action[AnyContent] = Action.async { implicit request =>
+    request.body.asJson match {
+      case Some(jsonBody) =>
+        val req = jsonBody.as[UserRequest]
+        userService
+          .delete(req)
+          .map(req => Ok(Json.toJson(req)))
+      case None => throw BodyNotProvided()
+    }
+  }
 
   def updateUser = Action.async { implicit request =>
     request.body.asJson match {
