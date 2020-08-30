@@ -2,3 +2,4 @@
 
 
 -> /api/user	routers.UserRouter
+-> /api/post 	routers.PostRouter

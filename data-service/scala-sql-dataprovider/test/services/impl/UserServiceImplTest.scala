@@ -1,6 +1,7 @@
 package services.impl
 
-import dtos.{UserRequest, UserResponseDTO}
+import dtos.UserResponseDTO
+import dtos.user.{UserRequest, UserResponseDTO}
 import models.User
 import org.mockito.ArgumentMatchers.{any, anyString}
 import org.mockito.Mockito.when

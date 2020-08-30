@@ -1,6 +1,7 @@
 package repositories
 
-import dtos.{UserRequest, UserResponseDTO}
+import dtos.UserResponseDTO
+import dtos.user.UserResponseDTO
 import io.getquill.{PostgresAsyncContext, SnakeCase}
 import javax.inject.{Inject, Singleton}
 import models.User
@@ -10,11 +11,19 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class UserRepository @Inject()(implicit ex: ExecutionContext) {
 
+
   lazy val ctx = new PostgresAsyncContext[SnakeCase](SnakeCase, "db.default")
   import ctx._
 
   private val simpleUser = quote {
     querySchema[User]("t_user")
+  }
+
+  def findFirstById(id: Long): Future[User] = {
+    val q = quote {id: Long =>
+      simpleUser.filter(_.id == id)
+    }
+    ctx.run(q(lift(id))).map(u => u.head)
   }
 
   def findFirstByNickname(username: String): Future[Option[User]] = {

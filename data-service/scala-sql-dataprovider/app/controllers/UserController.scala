@@ -1,16 +1,12 @@
 package controllers
 
-import dtos.{ResponseDTO, UserRequest}
+import dtos.ResponseDTO
+import dtos.user.UserRequest
 import error.BodyNotProvided
 import javax.inject.{Inject, Singleton}
 import play.api.Logger
 import play.api.libs.json.Json
-import play.api.mvc.{
-  AbstractController,
-  Action,
-  AnyContent,
-  ControllerComponents
-}
+import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
 import services.UserService
 import typedKeys.TypedKeys
 

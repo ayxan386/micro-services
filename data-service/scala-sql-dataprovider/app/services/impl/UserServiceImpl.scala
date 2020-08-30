@@ -1,6 +1,7 @@
 package services.impl
 
-import dtos.{UserRequest, UserResponseDTO}
+import dtos.UserResponseDTO
+import dtos.user.{UserRequest, UserResponseDTO}
 import error.UserNotFoundException
 import javax.inject.{Inject, Singleton}
 import models.User
@@ -65,4 +66,10 @@ class UserServiceImpl @Inject()(userRepository: UserRepository)(
                     surname = user.surname,
                     profilePicture = user.profilePicture,
                     nickname = user.nickname)
+
+  override def getById(id: Long): Future[UserResponseDTO] = {
+    userRepository
+      .findFirstById(id)
+      .map(userToResponseDTO)
+  }
 }
