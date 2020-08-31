@@ -23,5 +23,5 @@ object ResponseDTO {
             "message" -> JsString(ts.message)
           ))
     }
-  def wrappedIn[T](data: T, message: String) = new ResponseDTO(data, message)
+  def wrapIn[T](data: T, message: String) = new ResponseDTO(data, message)
 }
