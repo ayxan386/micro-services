@@ -1,7 +1,5 @@
 package repositories
 
-import dtos.UserResponseDTO
-import dtos.user.UserResponseDTO
 import io.getquill.{PostgresAsyncContext, SnakeCase}
 import javax.inject.{Inject, Singleton}
 import models.User

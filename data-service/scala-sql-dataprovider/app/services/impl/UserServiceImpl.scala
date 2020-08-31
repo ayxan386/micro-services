@@ -1,6 +1,5 @@
 package services.impl
 
-import dtos.UserResponseDTO
 import dtos.user.{UserRequest, UserResponseDTO}
 import error.UserNotFoundException
 import javax.inject.{Inject, Singleton}

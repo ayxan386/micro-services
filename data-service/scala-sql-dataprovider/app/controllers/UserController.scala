@@ -25,7 +25,7 @@ class UserController @Inject()(
   def getUserByName(username: String) = Action.async { implicit request =>
     userService
       .getByNickname(username)
-      .map(u => ResponseDTO.wrappedIn(u, SUCCESS_MESSAGE))
+      .map(u => ResponseDTO.wrapIn(u, SUCCESS_MESSAGE))
       .map(u => Ok(Json.toJson(u)))
   }
 
@@ -34,7 +34,7 @@ class UserController @Inject()(
       .get(TypedKeys.userType)
       .map(username => userService.getByNickname(username))
       .get
-      .map(u => ResponseDTO.wrappedIn(u, SUCCESS_MESSAGE))
+      .map(u => ResponseDTO.wrapIn(u, SUCCESS_MESSAGE))
       .map(u => Ok(Json.toJson(u)))
   }
 
@@ -44,7 +44,7 @@ class UserController @Inject()(
         val req = jsonBody.as[UserRequest]
         userService
           .delete(req)
-          .map(u => ResponseDTO.wrappedIn(u, SUCCESS_MESSAGE))
+          .map(u => ResponseDTO.wrapIn(u, SUCCESS_MESSAGE))
           .map(req => Ok(Json.toJson(req)))
       case None => throw BodyNotProvided()
     }
@@ -56,7 +56,7 @@ class UserController @Inject()(
         val req = jsonBody.as[UserRequest]
         userService
           .update(req)
-          .map(u => ResponseDTO.wrappedIn(u, SUCCESS_MESSAGE))
+          .map(u => ResponseDTO.wrapIn(u, SUCCESS_MESSAGE))
           .map(req => Ok(Json.toJson(req)))
       case None => throw BodyNotProvided()
     }
