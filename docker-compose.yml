@@ -19,7 +19,7 @@ services:
       - "5672:5672"
       - "15672:15672"
   data-provider:
-    image: spring-sql-dataprovider:2.1.0
+    image: spring-sql-dataprovider:2.1.1
     #build: ./data-service/spring-data-provider
     ports:
       - "5002:8082"

@@ -39,8 +39,8 @@ public class UserServiceImpl implements UserService {
     );
   }
 
-  @Cacheable(key = "#request.nickname.hashCode()")
   @Override
+  @CachePut(key = "#request.nickname.hashCode()")
   public UserResponse add(UserRequest request) {
     log.info("loading to database");
     return userMapper.modelToResponse(userRepository.save(
