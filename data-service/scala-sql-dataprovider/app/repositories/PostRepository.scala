@@ -1,5 +1,6 @@
 package repositories
 
+import dtos.post.PostResponse
 import io.getquill.{PostgresAsyncContext, SnakeCase}
 import javax.inject.{Inject, Singleton}
 import models.Post
@@ -15,6 +16,20 @@ class PostRepository @Inject()(implicit ex: ExecutionContext) {
 
   private val simplePost = quote {
     querySchema[Post]("t_post")
+  }
+
+  def getById(id: Int): Future[Option[Post]] = {
+    val q = quote { id: Int =>
+      simplePost.filter(_.id == id)
+    }
+    ctx.run(q(lift(id))).map(q => q.headOption)
+  }
+
+  def getAllPaged(page: Int, pageSize: Int): Future[List[Post]] = {
+    val q = quote { (page: Int, pageSize: Int) =>
+      simplePost.drop(page * pageSize).take(pageSize)
+    }
+    ctx.run(q(lift(page), lift(pageSize)))
   }
 
   def save(post: Post): Future[Post] = {

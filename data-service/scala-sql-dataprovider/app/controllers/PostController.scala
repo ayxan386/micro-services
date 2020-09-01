@@ -21,9 +21,24 @@ class PostController @Inject()(
 
   val SUCCESS_MESSAGE: String = "success"
 
-  def getAll(page: Int, pageSize: Int) = ???
+  def getAll(page: Int, pageSize: Int) = Action.async { implicit request =>
+    postService
+      .getAllPaged(page, pageSize)
+      .map(list => ResponseDTO.wrapIn(list, SUCCESS_MESSAGE))
+      .map(res => Ok(Json.toJson(res)))
+  }
 
-  def getById = ???
+  def getById = Action.async { implicit request =>
+    request.body.asJson match {
+      case Some(jsonBody) =>
+        val id = (jsonBody \ "id").as[Int]
+        postService
+          .getById(id)
+          .map(p => ResponseDTO.wrapIn(p, SUCCESS_MESSAGE))
+          .map(res => Ok(Json.toJson(res)))
+      case None => throw BodyNotProvided()
+    }
+  }
 
   def add = Action.async { implicit request =>
     request.body.asJson match {
