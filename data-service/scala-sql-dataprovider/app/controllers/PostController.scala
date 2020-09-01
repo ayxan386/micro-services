@@ -21,7 +21,12 @@ class PostController @Inject()(
 
   val SUCCESS_MESSAGE: String = "success"
 
-  def getAll(page: Int, pageSize: Int) = ???
+  def getAll(page: Int, pageSize: Int) = Action.async { implicit request =>
+    postService
+      .getAllPaged(page, pageSize)
+      .map(list => list.map(res => ResponseDTO.wrapIn(res, SUCCESS_MESSAGE)))
+      .map(list => Ok(Json.toJson(list)))
+  }
 
   def getById = ???
 
