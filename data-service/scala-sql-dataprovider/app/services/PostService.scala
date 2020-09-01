@@ -9,6 +9,8 @@ import scala.concurrent.Future
 
 @ImplementedBy(classOf[PostServiceImpl])
 trait PostService {
+  def getById(id: Int) : Future[PostResponse]
+
   def getAllPaged(page: Int, pageSize: Int): Future[List[PostResponse]]
 
   def add(req: PostRequest, username: String): Future[PostResponse]

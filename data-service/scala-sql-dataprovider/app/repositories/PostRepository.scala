@@ -18,6 +18,13 @@ class PostRepository @Inject()(implicit ex: ExecutionContext) {
     querySchema[Post]("t_post")
   }
 
+  def getById(id: Int): Future[Option[Post]] = {
+    val q = quote { id: Int =>
+      simplePost.filter(_.id == id)
+    }
+    ctx.run(q(lift(id))).map(q => q.headOption)
+  }
+
   def getAllPaged(page: Int, pageSize: Int): Future[List[Post]] = {
     val q = quote { (page: Int, pageSize: Int) =>
       simplePost.drop(page * pageSize).take(pageSize)

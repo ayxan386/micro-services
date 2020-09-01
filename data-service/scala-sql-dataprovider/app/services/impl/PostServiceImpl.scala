@@ -2,7 +2,7 @@ package services.impl
 
 import dtos.post
 import dtos.post.{PostRequest, PostResponse}
-import error.UserNotFoundException
+import error.{PostNotFoundException, UserNotFoundException}
 import javax.inject.{Inject, Singleton}
 import models.Post
 import repositories.{PostRepository, UserRepository}
@@ -34,6 +34,13 @@ class PostServiceImpl @Inject()(
       .getAllPaged(page, pageSize)
       .map(list => list.map(completeModelWithUser))
       .map(lf => Future.sequence(lf))
+      .flatMap(f => f)
+
+  override def getById(id: Int): Future[PostResponse] =
+    postRepository
+      .getById(id)
+      .map(op => op.getOrElse(throw PostNotFoundException()))
+      .map(completeModelWithUser)
       .flatMap(f => f)
 
   private def reqToModel(res: PostRequest) =

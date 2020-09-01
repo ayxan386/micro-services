@@ -28,7 +28,17 @@ class PostController @Inject()(
       .map(res => Ok(Json.toJson(res)))
   }
 
-  def getById = ???
+  def getById = Action.async { implicit request =>
+    request.body.asJson match {
+      case Some(jsonBody) =>
+        val id = (jsonBody \ "id").as[Int]
+        postService
+          .getById(id)
+          .map(p => ResponseDTO.wrapIn(p, SUCCESS_MESSAGE))
+          .map(res => Ok(Json.toJson(res)))
+      case None => throw BodyNotProvided()
+    }
+  }
 
   def add = Action.async { implicit request =>
     request.body.asJson match {
