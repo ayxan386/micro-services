@@ -4,11 +4,14 @@ import org.aykhan.dataprovider.dto.user.UserResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.time.Duration;
 
 
 @Configuration
@@ -17,6 +20,7 @@ public class RedisConfig {
   private String host;
   @Value("${spring.redis.port}")
   private int port;
+  private static final long CACHE_TIME_TO_LIVE = 30L;
 
   @Bean
   protected JedisConnectionFactory jedisConnectionFactory() {
@@ -35,6 +39,11 @@ public class RedisConfig {
     redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
     redisTemplate.setConnectionFactory(jedisConnectionFactory());
     return redisTemplate;
+  }
+
+  @Bean
+  public RedisCacheConfiguration redisConfiguration() {
+    return RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(CACHE_TIME_TO_LIVE));
   }
 }
 
