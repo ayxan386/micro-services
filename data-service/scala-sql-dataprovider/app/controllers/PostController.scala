@@ -24,8 +24,8 @@ class PostController @Inject()(
   def getAll(page: Int, pageSize: Int) = Action.async { implicit request =>
     postService
       .getAllPaged(page, pageSize)
-      .map(list => list.map(res => ResponseDTO.wrapIn(res, SUCCESS_MESSAGE)))
-      .map(list => Ok(Json.toJson(list)))
+      .map(list => ResponseDTO.wrapIn(list, SUCCESS_MESSAGE))
+      .map(res => Ok(Json.toJson(res)))
   }
 
   def getById = ???
