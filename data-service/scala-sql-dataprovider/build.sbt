@@ -18,7 +18,7 @@ libraryDependencies += "io.jsonwebtoken" % "jjwt" % "0.9.1"
 
 libraryDependencies += "org.mockito" % "mockito-core" % "3.5.7" % Test
 
-
+libraryDependencies += ws
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "scala-sql-dataprovider:com.aykhan.controllers._"
 

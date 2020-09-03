@@ -5,10 +5,8 @@ import dtos.post.PostRequest
 import error.{BodyNotProvided, UnExpectedError}
 import javax.inject.{Inject, Singleton}
 import play.api.libs.json.Json
-import play.api.mvc.{AbstractController, ControllerComponents, Handler}
-import play.libs.typedmap.TypedKey
+import play.api.mvc.{AbstractController, ControllerComponents}
 import services.PostService
-import sun.jvm.hotspot.debugger.Page
 import typedKeys.TypedKeys
 
 import scala.concurrent.ExecutionContext
