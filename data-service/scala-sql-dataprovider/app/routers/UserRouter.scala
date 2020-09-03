@@ -14,6 +14,7 @@ class UserRouter @Inject()(userController: UserController)
       userController.getUserByName(username)
     case GET(p"/me") => userController.getMe
     case POST(p"")   => userController.addUser
+    case POST(p"/save")   => userController.saveLogo
     case PUT(p"")    => userController.updateUser
     case DELETE(p"") => userController.deleteUser
   }

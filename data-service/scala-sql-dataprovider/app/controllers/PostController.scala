@@ -5,10 +5,8 @@ import dtos.post.PostRequest
 import error.{BodyNotProvided, UnExpectedError}
 import javax.inject.{Inject, Singleton}
 import play.api.libs.json.Json
-import play.api.mvc.{AbstractController, ControllerComponents, Handler}
-import play.libs.typedmap.TypedKey
+import play.api.mvc.{AbstractController, ControllerComponents}
 import services.PostService
-import sun.jvm.hotspot.debugger.Page
 import typedKeys.TypedKeys
 
 import scala.concurrent.ExecutionContext
@@ -53,4 +51,18 @@ class PostController @Inject()(
       case None => throw BodyNotProvided()
     }
   }
+
+  def updatePost = Action.async { implicit request =>
+    request.body.asJson match {
+      case Some(jsonBody) =>
+        jsonBody
+          .asOpt[PostRequest]
+          .map(req => postService.update(req))
+          .getOrElse(throw UnExpectedError())
+          .map(res => ResponseDTO.wrapIn(res, SUCCESS_MESSAGE))
+          .map(res => Ok(Json.toJson(res)))
+      case None => throw BodyNotProvided()
+    }
+  }
+
 }

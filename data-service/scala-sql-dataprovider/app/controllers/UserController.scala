@@ -2,11 +2,17 @@ package controllers
 
 import dtos.ResponseDTO
 import dtos.user.UserRequest
-import error.BodyNotProvided
+import error.{BodyNotProvided, UnExpectedError}
 import javax.inject.{Inject, Singleton}
 import play.api.Logger
 import play.api.libs.json.Json
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}
+import play.api.mvc.{
+  AbstractController,
+  Action,
+  AnyContent,
+  ControllerComponents,
+  Handler
+}
 import services.UserService
 import typedKeys.TypedKeys
 
@@ -71,5 +77,17 @@ class UserController @Inject()(
           .map(req => Ok(Json.toJson(req)))
       case None => throw BodyNotProvided()
     }
+  }
+
+  def saveLogo: Handler = Action(parse.multipartFormData).async {
+    implicit request =>
+      request.body
+        .file("file")
+        .map(file =>
+          userService.updateProfile(file,
+                                    request.attrs.get(TypedKeys.userType)))
+        .getOrElse(throw UnExpectedError())
+        .map(s => ResponseDTO.wrapIn(s, SUCCESS_MESSAGE))
+        .map(res => Ok(Json.toJson(res)))
   }
 }
