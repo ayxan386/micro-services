@@ -43,8 +43,14 @@ class PostServiceImpl @Inject()(
       .map(completeModelWithUser)
       .flatMap(f => f)
 
+  override def update(req: PostRequest): Future[PostResponse] =
+    postRepository
+      .updatePost(reqToModel(req))
+      .map(completeModelWithUser)
+      .flatMap(f => f)
+
   private def reqToModel(res: PostRequest) =
-    Post(id = -1L,
+    Post(id = res.id.getOrElse(-1).toLong,
          title = res.title,
          body = res.body,
          authorId = -1L,
@@ -62,5 +68,4 @@ class PostServiceImpl @Inject()(
     userService
       .getById(m.authorId)
       .map(uRes => modelToResponse(m).copy(author = Some(uRes)))
-
 }

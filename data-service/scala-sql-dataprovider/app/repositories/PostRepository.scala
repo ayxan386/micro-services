@@ -1,6 +1,7 @@
 package repositories
 
 import dtos.post.PostResponse
+import error.PostNotFoundException
 import io.getquill.{PostgresAsyncContext, SnakeCase}
 import javax.inject.{Inject, Singleton}
 import models.Post
@@ -37,5 +38,18 @@ class PostRepository @Inject()(implicit ex: ExecutionContext) {
       simplePost.insert(post).returningGenerated(_.id)
     }
     ctx.run(q(lift(post))).map(id => post.copy(id = id))
+  }
+
+  def updatePost(post: Post): Future[Post] = {
+    val q = quote { post: Post =>
+      simplePost
+        .filter(_.id == post.id)
+        .update(post)
+    }
+    getById(post.id.toInt)
+      .map(op => op.getOrElse(throw PostNotFoundException()))
+      .map(p => p.copy(body = post.body, title = post.title))
+      .map(p => ctx.run(q(lift(p))).map(r => p))
+      .flatMap(f => f)
   }
 }
