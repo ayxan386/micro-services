@@ -62,7 +62,8 @@ class PostServiceImpl @Inject()(
     PostResponse(id = post.id,
                  title = post.title,
                  body = post.body,
-                 author = None)
+                 author = None,
+                 updatedOn = post.updatedOn)
 
   private def completeModelWithUser(m: Post) =
     userService

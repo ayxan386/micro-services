@@ -1,8 +1,10 @@
 package repositories
 
+import java.time.LocalDateTime
+
 import dtos.post.PostResponse
 import error.PostNotFoundException
-import io.getquill.{PostgresAsyncContext, SnakeCase}
+import io.getquill.{Ord, PostgresAsyncContext, SnakeCase}
 import javax.inject.{Inject, Singleton}
 import models.Post
 
@@ -28,7 +30,10 @@ class PostRepository @Inject()(implicit ex: ExecutionContext) {
 
   def getAllPaged(page: Int, pageSize: Int): Future[List[Post]] = {
     val q = quote { (page: Int, pageSize: Int) =>
-      simplePost.drop(page * pageSize).take(pageSize)
+      simplePost
+        .sortBy(p => p.createdOn)(ord = Ord.descNullsLast)
+        .drop(page * pageSize)
+        .take(pageSize)
     }
     ctx.run(q(lift(page), lift(pageSize)))
   }
@@ -37,7 +42,11 @@ class PostRepository @Inject()(implicit ex: ExecutionContext) {
     val q = quote { post: Post =>
       simplePost.insert(post).returningGenerated(_.id)
     }
-    ctx.run(q(lift(post))).map(id => post.copy(id = id))
+    ctx
+      .run(
+        q(lift(post.copy(createdOn = Some(LocalDateTime.now()),
+                         updatedOn = Some(LocalDateTime.now())))))
+      .map(id => post.copy(id = id))
   }
 
   def updatePost(post: Post): Future[Post] = {
@@ -48,7 +57,11 @@ class PostRepository @Inject()(implicit ex: ExecutionContext) {
     }
     getById(post.id.toInt)
       .map(op => op.getOrElse(throw PostNotFoundException()))
-      .map(p => p.copy(body = post.body, title = post.title))
+      .map(
+        p =>
+          p.copy(body = post.body,
+                 title = post.title,
+                 updatedOn = Some(LocalDateTime.now())))
       .map(p => ctx.run(q(lift(p))).map(r => p))
       .flatMap(f => f)
   }
