@@ -3,3 +3,4 @@
 
 -> /api/user	routers.UserRouter
 -> /api/post 	routers.PostRouter
+-> /api/comment routers.CommentRouter
