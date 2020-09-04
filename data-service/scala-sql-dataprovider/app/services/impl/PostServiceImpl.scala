@@ -6,7 +6,7 @@ import error.{PostNotFoundException, UserNotFoundException}
 import javax.inject.{Inject, Singleton}
 import models.Post
 import repositories.{PostRepository, UserRepository}
-import services.{PostService, UserService}
+import services.{CommentService, PostService, UserService}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -14,6 +14,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class PostServiceImpl @Inject()(
     postRepository: PostRepository,
     userRepository: UserRepository,
+    commentService: CommentService,
     userService: UserService)(implicit ex: ExecutionContext)
     extends PostService {
 
@@ -24,7 +25,7 @@ class PostServiceImpl @Inject()(
       .map(u => reqToModel(req).copy(authorId = u.id))
       .map(m => postRepository.save(m))
       .flatMap(f => f)
-      .map(completeModelWithUser)
+      .map(completeModelWithComments)
       .flatMap(f => f)
   }
 
@@ -32,7 +33,7 @@ class PostServiceImpl @Inject()(
                            pageSize: Int): Future[List[PostResponse]] =
     postRepository
       .getAllPaged(page, pageSize)
-      .map(list => list.map(completeModelWithUser))
+      .map(list => list.map(completeModelWithComments))
       .map(lf => Future.sequence(lf))
       .flatMap(f => f)
 
@@ -40,13 +41,13 @@ class PostServiceImpl @Inject()(
     postRepository
       .getById(id)
       .map(op => op.getOrElse(throw PostNotFoundException()))
-      .map(completeModelWithUser)
+      .map(completeModelWithComments)
       .flatMap(f => f)
 
   override def update(req: PostRequest): Future[PostResponse] =
     postRepository
       .updatePost(reqToModel(req))
-      .map(completeModelWithUser)
+      .map(completeModelWithComments)
       .flatMap(f => f)
 
   private def reqToModel(res: PostRequest) =
@@ -63,10 +64,17 @@ class PostServiceImpl @Inject()(
                  title = post.title,
                  body = post.body,
                  author = None,
-                 updatedOn = post.updatedOn)
+                 updatedOn = post.updatedOn,
+                 Nil)
 
   private def completeModelWithUser(m: Post) =
     userService
       .getById(m.authorId)
       .map(uRes => modelToResponse(m).copy(author = Some(uRes)))
+
+  private def completeModelWithComments(m: Post) =
+    completeModelWithUser(m)
+      .map(r =>
+        commentService.getByPostId(r.id).map(lc => r.copy(comments = lc)))
+      .flatMap(f => f)
 }

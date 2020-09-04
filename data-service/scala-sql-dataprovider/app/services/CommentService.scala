@@ -11,4 +11,6 @@ trait CommentService {
   def add(req: CommentRequest,
           nickname: Option[String]): Future[CommentResponse]
 
+  def getByPostId(postId: Long): Future[List[CommentResponse]]
+
 }

@@ -28,6 +28,13 @@ class CommentServiceImpl @Inject()(
       .flatMap(f => f)
   }
 
+  override def getByPostId(postId: Long): Future[List[CommentResponse]] =
+    commentRepository
+      .getAllByPostId(postId)
+      .map(lc => lc.map(modelToResponse))
+      .map(lf => Future.sequence(lf))
+      .flatMap(f => f)
+
   private def reqToModel(req: CommentRequest) =
     Comment(id = -1L, body = req.body, postId = req.postId, authorId = -1L)
 
@@ -41,4 +48,5 @@ class CommentServiceImpl @Inject()(
                           body = m.body,
                           author = user))
   }
+
 }
