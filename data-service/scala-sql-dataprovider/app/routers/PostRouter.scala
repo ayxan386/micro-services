@@ -7,12 +7,15 @@ import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
 @Singleton
-class PostRouter @Inject()(postController: PostController) extends SimpleRouter {
+class PostRouter @Inject()(postController: PostController)
+    extends SimpleRouter {
   override def routes: Routes = {
     case POST(p"") => postController.add
     case GET(p"")  => postController.getById
     case GET(p"/all" ? q"page=$page" & q"pageSize=$pageSize") =>
       postController.getAll(page.toInt, pageSize.toInt)
+    case GET(p"/all" ? q"page=$page") =>
+      postController.getAll(page.toInt)
     case PUT(p"") => postController.updatePost
   }
 }

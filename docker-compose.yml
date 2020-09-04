@@ -18,16 +18,22 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-  data-provider:
-    image: spring-sql-dataprovider:2.1.1
+        #  data-provider:
+        #image: spring-sql-dataprovider:2.1.1
     #build: ./data-service/spring-data-provider
+    #ports:
+    #  - "5002:8082"
+    #env_file:
+    #  - ./local.env
+    #depends_on:
+    #  - message-queue
+    #  - redis
+  data-provider:
+    image: scala-sql-dataprovider:1.0.4
     ports:
-      - "5002:8082"
+      - "5002:9000"
     env_file:
       - ./local.env
-    depends_on:
-      - message-queue
-      - redis
   content-manager:
     image: content-manager-sql-spring:1.1.4
     ports:

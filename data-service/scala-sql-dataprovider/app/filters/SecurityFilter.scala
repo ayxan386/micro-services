@@ -10,14 +10,19 @@ import utils.JwtUtils
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
-class SecurityFilter @Inject()(jwtUtils: JwtUtils)(implicit val mat: Materializer,
-                               implicit val ex: ExecutionContext)
+class SecurityFilter @Inject()(jwtUtils: JwtUtils)(
+    implicit val mat: Materializer,
+    implicit val ex: ExecutionContext)
     extends Filter {
   private val HEADER_NAME = "Authorization"
   private val BEARER = "Bearer "
   override def apply(nextFilter: RequestHeader => Future[Result])(
       rh: RequestHeader): Future[Result] = {
-      rh.headers.get(HEADER_NAME)
+    if (rh.method.contains("Option")) {
+      nextFilter(rh)
+    } else {
+      rh.headers
+        .get(HEADER_NAME)
         .filter(_.startsWith(BEARER))
         .orElse(throw HeaderNotProvidedError())
         .map(_.substring(BEARER.length))
@@ -27,5 +32,6 @@ class SecurityFilter @Inject()(jwtUtils: JwtUtils)(implicit val mat: Materialize
         .map(rh.addAttr(TypedKeys.userType, _))
         .map(nextFilter(_))
         .get
+    }
   }
 }
